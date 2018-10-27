@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="com.tarena.entity.NewMapper">
+ 	<!-- 查询所有新闻数-->
+ 	<select id="countNewNum" resultType="java.lang.Integer">
+ 		select count(nid) from news
+ 	</select>
+ 	
+ 	<!-- 查询所有新闻-->
+ 	<select id="findAllNews" resultType="com.tarena.entity.News">
+ 		select * from news
+ 	</select>
+ 	
+ 	<!-- 根据新闻标题查询-->
+ 	<select id="findByNtitle"  parameterType="java.lang.String"  resultType="com.tarena.entity.News">
+ 		select * from news where ntitle=#{ntitle}
+ 	</select>
+ 	
+ 	<!-- 根据新闻内容路径-->
+ 	<select id="findByNpresent"  parameterType="java.lang.String"  resultType="com.tarena.entity.News">
+ 		select * from news where present=#{present}
+ 	</select>
+ 	
+ 	<!-- 根据图片路径查找-->
+ 	<select id="findByNewphoto"  parameterType="java.lang.String"  resultType="com.tarena.entity.News">
+ 		select * from news where newphoto=#{newphoto}
+ 	</select>
+ 	
+ 	<!-- 插入新新闻信息-->
+ 	<insert id="insertNews"  parameterType="com.tarena.entity.News">
+ 		insert into news (ntitle,stime,summary,present,quarry,newphoto) values(#{ntitle},#{stime},#{summary},#{present},#{quarry},#{newphoto})
+ 	</insert>
+ 	
+ 	<!--根据关键字模糊查询-->
+ 	<select id="mfindNews" parameterType="java.lang.String" resultType="com.tarena.entity.News">
+ 		select * from news where  nid like binary "%"#{keywords}"%" 
+ 		or ntitle like binary "%"#{keywords}"%"
+ 		or present like binary "%"#{keywords}"%"
+ 		or quarry like binary "%"#{keywords}"%"
+ 		or newphoto like binary "%"#{keywords}"%"
+ 		or stime like binary "%"#{keywords}"%"
+ 	</select>
+ 	
+ 	<!-- 根据nid删除新闻信息-->
+ 	<delete id="deleteNewByNid"  parameterType="java.lang.Integer">
+ 		delete from news where nid=#{nid}
+ 	</delete>
+ 	
+ 	<!-- 根据nid查询新闻信息-->
+ 	<select id="findByNid"  parameterType="java.lang.Integer" resultType="com.tarena.entity.News">
+ 		select * from news where nid=#{nid}
+ 	</select>
+ 	
+ 	<!-- 更新概述-->
+ 	<update id="updateSummary"  parameterType="com.tarena.entity.News" >
+ 		update news set summary=#{summary} where nid=#{nid}
+ 	</update>
+ 	
+ 	<!-- 查询最新一天的新闻-->
+ 	<select id="findByStimeFour" resultType="com.tarena.entity.News">
+ 		select * from news order by stime desc limit 0,4
+ 	</select>
+ 	
+ 	<!-- 查询最新一天的新闻-->
+ 	<select id="findAllNewsByStime" resultType="com.tarena.entity.News">
+ 		select * from news order by stime desc 
+ 	</select>
+ </mapper>

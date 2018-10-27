@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="com.tarena.entity.TravelsMapper">
+ 	
+ 	<!-- 根据游记图片路径查询该用户是否用过该路径-->
+ 	<select id="findByTravelsphoto" parameterType="com.tarena.entity.Travels" resultType="com.tarena.entity.Travels">
+ 		select * from travels where travelsphoto=#{travelsphoto} and uid=#{uid}
+ 	</select>
+ 	
+ 	<!-- 根据游记内容路径查询该用户是否用过该路径-->
+ 	<select id="findByTpresent" parameterType="com.tarena.entity.Travels" resultType="com.tarena.entity.Travels">
+ 		select * from travels where present=#{present} and uid=#{uid}
+ 	</select>
+ 	
+ 	<!-- 插入新游记-->
+ 	<insert id="insertTravels"  parameterType="com.tarena.entity.Travels">
+ 		insert into travels (uid,title,atime,present,travelsphoto,state) values(#{uid},#{title},#{atime},#{present},#{travelsphoto},#{state}
+ 		) 
+ 	</insert>
+ 	
+ 	<!-- 统计游记信息个数-->
+ 	<select id="countTravelsNum"  resultType="java.lang.Integer">
+ 		select count(tid) from travels
+ 	</select>
+ 	
+ 	<!-- 查找所有游记信息-->
+ 	<select id="findAlltravels"  resultType="com.tarena.entity.Travels">
+ 		select * from travels order by atime desc 
+ 	</select>
+ 	
+ 	 <!--根据关键字模糊查询-->
+ 	<select id="mfindtravels" parameterType="java.lang.String" resultType="com.tarena.entity.Travels">
+ 		select * from travels where  tid like binary "%"#{keywords}"%" 
+ 		or title like binary "%"#{keywords}"%"
+ 		or present like binary "%"#{keywords}"%"
+ 		or uid like binary "%"#{keywords}"%"
+ 		or travelsphoto like binary "%"#{keywords}"%"
+ 		or atime like binary "%"#{keywords}"%"
+ 		or state like binary "%"#{keywords}"%"
+ 	</select>
+ 	
+ 	<!-- 根据id删除游记-->
+ 	<delete id="deleteTravelsByTid"  parameterType="java.lang.Integer">
+ 		delete from travels where tid=#{tid}
+ 	</delete>
+ 	
+ 	<!-- 根据游记ID查找游记-->
+ 	<select id="findByTid"  parameterType="java.lang.Integer" resultType="com.tarena.entity.Travels">
+ 		select * from travels where tid=#{tid}
+ 	</select>
+ 	
+ 	<!-- 审核通过该游记-->
+ 	<update id="auditing"  parameterType="java.lang.Integer">
+ 		update travels set state="已通过" where tid=#{tid}
+ 	</update>
+ 	
+ 	<!--根据用户编号查询其所有游记-->
+ 	<select id="findAllTravelsById"  parameterType="java.lang.Integer" resultType="com.tarena.entity.Travels">
+ 		select * from travels where uid=#{userid}
+ 	</select>
+ 	
+ </mapper>

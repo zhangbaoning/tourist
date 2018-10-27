@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="com.tarena.entity.OperatorMapper">
+ 	<!-- 根据管理员名查找管理员 -->
+ 	<select id="findByOpname" parameterType="java.lang.String"  resultType="com.tarena.entity.Operator">
+ 		select * from operator where opname=#{opname}
+ 	</select>
+ </mapper>

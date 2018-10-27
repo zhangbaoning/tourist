@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="com.tarena.entity.QuestionMapper">
+	<!-- 发布新问题 -->
+	<insert id="insertQuestion" parameterType="com.tarena.entity.Question">
+		insert into question (uid,qtime,present,state,qtitle) values(#{uid},#{qtime},#{present},#{state},#{qtitle})
+	</insert>
+	
+	<!-- 查询所有问答，根据状态，发布时间排序 -->
+	<select id="findAllQuestion" resultType="com.tarena.entity.Question">
+		select * from question order by qtime desc
+	</select>
+	
+	<!-- 统计所有问答信息个数 -->
+	<select id="countQuestionNum" resultType="java.lang.Integer">
+		select count(qid) from question 
+	</select>
+	
+	<!-- 模糊查找 问答-->
+	<select id="mfindQuestion"  resultType="com.tarena.entity.Question" parameterType="java.lang.String">
+		select * from question where qid  like binary "%"#{keywords}"%"
+			or uid like binary "%"#{keywords}"%"
+				or qtime like binary "%"#{keywords}"%"
+					  or present like binary "%"#{keywords}"%"
+						or state  like binary "%"#{keywords}"%"
+							 or qtitle  like binary "%"#{keywords}"%"			
+	</select>
+	
+	<!-- 根据qid删除该问答 -->
+	<delete id="deleteQuestionByQid" parameterType="java.lang.Integer">
+		delete from question where qid=#{qid} 
+	</delete>
+	
+	<!--查询未解决问题 -->
+	<select id="findQuestionByState" resultType="com.tarena.entity.Question">
+		select * from question where state='未解决' order by qtime
+	</select>
+	
+	<!--根据问题编号查询问题 -->
+	<select id="findByQid"  parameterType="java.lang.Integer" resultType="com.tarena.entity.Question">
+		select * from question where qid=#{qid}
+	</select>
+ </mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="com.tarena.entity.UserMapper">
+ 	
+ 	<!-- 查询所有用户数-->
+ 	<select id="countUserNum" resultType="java.lang.Integer">
+ 		select count(userid) from user
+ 	</select>
+ 	
+ 	<!-- 根据当前页面数查找应显示用户-->
+ 	<select id="findAllUser" resultType="com.tarena.entity.User">
+ 		select * from user
+ 	</select>
+	
+	<!-- 根据关键字查找 -->
+ 	<select id="mfindUser" parameterType="java.lang.String"  resultType="com.tarena.entity.User">
+ 		select * from user where  userid like binary "%"#{keywords}"%" 
+ 		or email like  binary "%"#{keywords}"%"
+ 		or userpwd like binary "%"#{keywords}"%"
+ 		or resume like binary "%"#{keywords}"%"
+ 		or nickname like binary "%"#{keywords}"%"
+ 		or faceimg like binary "%"#{keywords}"%"
+ 		or sex like binary "%"#{keywords}"%"
+ 		or hobby like binary "%"#{keywords}"%"
+ 	</select>
+ 	
+ 	<!-- 根据用户id删除 -->
+ 	<delete id="deleteUserById" parameterType="java.lang.Integer">
+ 		delete from user where userid=#{userid}
+ 	</delete>
+ 	
+ 	<!-- 根据用户邮箱查询-->
+ 	<select id="findByEmail"  parameterType="java.lang.String" resultType="com.tarena.entity.User">
+ 		select * from user where email=#{email}
+ 	</select>
+ 	
+ 	<!-- 根据用户邮箱查询-->
+ 	<select id="findByNickname"  parameterType="java.lang.String" resultType="com.tarena.entity.User">
+ 		select * from user where nickname=#{nickname}
+ 	</select>
+ 	
+ 	<!-- 前台注册用户-->
+ 	<insert id="addUser"  parameterType="com.tarena.entity.User" >
+ 		insert into user (email,nickname,userpwd) values(#{email},#{nickname},#{userpwd})
+ 	</insert>
+ 	
+ 	 <!-- 根据用户id查询-->
+ 	<select id="findByUid"  parameterType="java.lang.Integer" resultType="com.tarena.entity.User">
+ 		select * from user where userid=#{uid}
+ 	</select>
+ 	
+ 	<!--更新User信息-->
+ 	<update id="updateUser"  parameterType="com.tarena.entity.User">
+ 		update user set email=#{email},userpwd=#{userpwd},resume=#{resume}, 
+ 		nickname=#{nickname},faceimg=#{faceimg},sex=#{sex},hobby=#{hobby}
+ 		where userid=#{userid}
+ 	</update>
+ </mapper>
