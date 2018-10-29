@@ -8,37 +8,84 @@ import java.sql.Date;
  *
  */
 public class Travels {
-	//游记编号
+
+	/**
+	 * 游记编号
+	 */
 	private Integer tid;
-	//游记发表者编号
+	/**
+	 * 游记发表者编号
+	 */
+
 	private Integer uid;
-	//游记标题
+
+	/**
+	 * 游记标题
+	 */
 	private String title;
-	//游记发表时间
+
+	/**
+	 * 游记发表时间
+	 */
 	private Date atime;
-	//游记内容路径
+	/**
+	 * 游记内容路径
+	 */
+
 	private String present;
-	//游记图片路径
+
+	/**
+	 * 游记图片路径
+	 */
 	private String travelsphoto;
-	//游记状态,是否审核
+
+	/**
+	 * 游记状态,是否审核
+	 */
 	private String state;
-	//无参数构造器
+
+	/**
+	 * 无参数构造器
+	 */
+
 	public Travels() {
 		super();
 	}
-	//游记内容路径uid构造器
+
+
+	/**
+	 * 游记内容路径uid构造器
+	 * @param uid
+	 * @param present
+	 */
 	public Travels(Integer uid, String present) {
 		super();
 		this.uid = uid;
 		this.present = present;
 	}
-	//游记图片路径uid构造器
+
+
+	/**
+	 * 游记图片路径uid构造器
+	 * @param travelsphoto
+	 * @param uid
+	 */
 	public Travels(String travelsphoto,Integer uid) {
 		super();
 		this.uid = uid;
 		this.travelsphoto = travelsphoto;
 	}
-	//去游记编号构造器
+
+
+	/**
+	 * 去游记编号构造器
+	 * @param uid
+	 * @param title
+	 * @param atime
+	 * @param present
+	 * @param travelsphoto
+	 * @param state
+	 */
 	public Travels(Integer uid, String title, Date atime, String present,
 			String travelsphoto, String state) {
 		super();
@@ -50,7 +97,17 @@ public class Travels {
 		this.state = state;
 	}
 
-	//全参数构造器
+
+	/**
+	 * 全参数构造器
+	 * @param tid
+	 * @param uid
+	 * @param title
+	 * @param atime
+	 * @param present
+	 * @param travelsphoto
+	 * @param state
+	 */
 	public Travels(Integer tid, Integer uid, String title, Date atime,
 			String present, String travelsphoto, String state) {
 		super();
@@ -62,7 +119,12 @@ public class Travels {
 		this.travelsphoto = travelsphoto;
 		this.state = state;
 	}
-	//getter和setter方法
+
+
+	/**
+	 * getter和setter方法
+	 * @return
+	 */
 	public Integer getTid() {
 		return tid;
 	}
@@ -105,7 +167,12 @@ public class Travels {
 	public void setState(String state) {
 		this.state = state;
 	}
-	//重写toString().hasCode(),equals()
+
+
+	/**
+	 * 重写toString().hasCode(),equals()
+	 * @return
+	 */
 	@Override
 	public String toString() {
 		return "Travels [atime=" + atime + ", present=" + present + ", state="

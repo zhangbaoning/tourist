@@ -8,25 +8,60 @@ import java.sql.Date;
  *
  */
 public class News {
-	//新闻编号
+
+    /**
+     * 新闻编号
+     */
 	private Integer nid;
-	//新闻标题
+
+    /**
+     * 新闻标题
+	 */
 	private String ntitle;
-	//发布时间
+
+    /**
+     * 发布时间
+	 */
 	private Date stime;
-	//新闻概述
+
+    /**
+     * 新闻概述
+	 */
 	private String summary;
-	//新闻内容路径
+
+    /**
+     * 新闻内容路径
+	 */
 	private String present;
-	//新闻来源
+
+    /**
+     * 新闻来源
+	 */
 	private String quarry;
-	//图片路径
+
+    /**
+     * 图片路径
+	 */
 	private String newphoto;
-	//无参数构造器
+
+
+    /**
+     * 无参数构造器
+	 */
 	public News() {
 		super();
-	}
-	//去主键构造器
+    }
+
+
+    /**
+     * 去主键构造器
+     * @param ntitle
+     * @param stime
+     * @param summary
+     * @param present
+     * @param quarry
+     * @param newphoto
+	 */
 	public News(String ntitle, Date stime, String summary, String present,
 			String quarry, String newphoto) {
 		super();
@@ -36,8 +71,19 @@ public class News {
 		this.present = present;
 		this.quarry = quarry;
 		this.newphoto = newphoto;
-	}
-	//全参数构造器
+    }
+
+
+    /**
+     * 全参数构造器
+     * @param nid
+     * @param ntitle
+     * @param stime
+     * @param summary
+     * @param present
+     * @param quarry
+     * @param newphoto
+	 */
 	public News(Integer nid, String ntitle, Date stime, String summary,
 			String present, String quarry, String newphoto) {
 		super();
@@ -48,14 +94,25 @@ public class News {
 		this.present = present;
 		this.quarry = quarry;
 		this.newphoto = newphoto;
-	}
-	//编号和概述构造器
+    }
+
+
+    /**
+     * 编号和概述构造器
+     * @param nid
+     * @param summary
+	 */
 	public News(Integer nid, String summary) {
 		super();
 		this.nid = nid;
 		this.summary = summary;
-	}
-	//setter和getter方法
+    }
+
+
+    /**
+     * setter和getter方法
+     * @return
+	 */
 	public Integer getNid() {
 		return nid;
 	}
@@ -97,8 +154,12 @@ public class News {
 	}
 	public void setNewphoto(String newphoto) {
 		this.newphoto = newphoto;
-	}
-	//重写toString(),equals(),hashCode()方法
+    }
+
+    /**
+     * 重写toString(),equals(),hashCode()方法
+     * @return
+	 */
 	@Override
 	public String toString() {
 		return "News [newphoto=" + newphoto + ", nid=" + nid + ", ntitle="
@@ -114,18 +175,23 @@ public class News {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+        if (this == obj) {
 			return true;
-		if (obj == null)
+        }
+        if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
 			return false;
-		com.tarena.entity.News other = (com.tarena.entity.News) obj;
+        }
+        News other = (News) obj;
 		if (nid == null) {
-			if (other.nid != null)
+            if (other.nid != null) {
 				return false;
-		} else if (!nid.equals(other.nid))
+            }
+        } else if (!nid.equals(other.nid)) {
 			return false;
+		}
 		return true;
 	}
 	

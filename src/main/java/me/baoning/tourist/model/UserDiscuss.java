@@ -6,34 +6,62 @@ package me.baoning.tourist.model;
  *
  */
 public class UserDiscuss {
-	//用户属性
-	private com.tarena.entity.User user;
-	//评论属性
-	private com.tarena.entity.Discuss discuss;
-	//无参数构造器
+	//
+	/**
+	 * 用户属性
+	 */
+	private User user;
+	//
+	/**
+	 * 评论属性
+	 */
+	private Discuss discuss;
+	//
+
+	/**
+	 * 无参数构造器
+	 */
 	public UserDiscuss() {
 		super();
 	}
-	//全参数构造器 
-	public UserDiscuss(com.tarena.entity.User user, com.tarena.entity.Discuss discuss) {
+	//
+
+	/**
+	 * 全参数构造器
+	 *
+	 * @param user
+	 * @param discuss
+	 */
+	public UserDiscuss(User user, Discuss discuss) {
 		super();
 		this.user = user;
 		this.discuss = discuss;
 	}
-	//getter和setter方法
-	public com.tarena.entity.User getUser() {
+	//
+
+	/**
+	 * getter和setter方法
+	 * @return
+	 */
+	public User getUser() {
 		return user;
 	}
-	public void setUser(com.tarena.entity.User user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
-	public com.tarena.entity.Discuss getDiscuss() {
+	public Discuss getDiscuss() {
 		return discuss;
 	}
-	public void setDiscuss(com.tarena.entity.Discuss discuss) {
+
+	public void setDiscuss(Discuss discuss) {
 		this.discuss = discuss;
 	}
-	//重写toString和equals.hasCode方法
+	//
+
+	/**
+	 * 重写toString和equals.hasCode方法
+	 * @return
+	 */
 	@Override
 	public String toString() {
 		return "UserDiscuss [discuss=" + discuss + ", user=" + user + "]";
@@ -48,23 +76,30 @@ public class UserDiscuss {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
-		com.tarena.entity.UserDiscuss other = (com.tarena.entity.UserDiscuss) obj;
+		}
+		UserDiscuss other = (UserDiscuss) obj;
 		if (discuss == null) {
-			if (other.discuss != null)
+			if (other.discuss != null) {
 				return false;
-		} else if (!discuss.equals(other.discuss))
+			}
+		} else if (!discuss.equals(other.discuss)) {
 			return false;
+		}
 		if (user == null) {
-			if (other.user != null)
+			if (other.user != null) {
 				return false;
-		} else if (!user.equals(other.user))
+			}
+		} else if (!user.equals(other.user)) {
 			return false;
+		}
 		return true;
 	}
 	

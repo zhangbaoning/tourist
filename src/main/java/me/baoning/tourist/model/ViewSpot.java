@@ -7,21 +7,43 @@ package me.baoning.tourist.model;
  *
  */
 public class ViewSpot {
-    //景区编号
+
+    /**
+     * 景区编号
+     */
     private Integer vid;
-    //景区名称
+
+    /**
+     * 景区名称
+     */
     private String vname;
-    //景区内容路径
+
+    /**
+     * 景区内容路径
+     */
     private String present;
-    //景区图片跟目录
+
+    /**
+     * 景区图片跟目录
+     */
     private String veiwphoto;
 
-    //无参构造器
+
+    /**
+     * 无参构造器
+     */
     public ViewSpot() {
         super();
     }
 
-    //不带主键的构造器
+
+    /**
+     * 不带主键的构造器
+     *
+     * @param vname
+     * @param present
+     * @param veiwphoto
+     */
     public ViewSpot(String vname, String present, String veiwphoto) {
         super();
         this.vname = vname;
@@ -29,7 +51,14 @@ public class ViewSpot {
         this.veiwphoto = veiwphoto;
     }
 
-    //全参数构造器
+
+    /**
+     * 全参数构造器
+     * @param vid
+     * @param vname
+     * @param present
+     * @param veiwphoto
+     */
     public ViewSpot(Integer vid, String vname, String present,
                     String veiwphoto) {
         super();
@@ -39,7 +68,11 @@ public class ViewSpot {
         this.veiwphoto = veiwphoto;
     }
 
-    //getter和setter方法
+
+    /**
+     * getter和setter方法
+     * @return
+     */
     public Integer getVid() {
         return vid;
     }
@@ -72,7 +105,11 @@ public class ViewSpot {
         this.veiwphoto = veiwphoto;
     }
 
-    //重写toString(),equals(),hashCode()方法
+
+    /**
+     * 重写toString(),equals(),hashCode()方法
+     * @return
+     */
     @Override
     public String toString() {
         return "VeiwSpot [present=" + present + ", vid=" + vid + ", viewphoto="

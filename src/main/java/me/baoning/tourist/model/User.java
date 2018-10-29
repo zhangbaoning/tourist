@@ -8,49 +8,98 @@ import java.io.Serializable;
  * 
  */
 public class User implements Serializable{
-	//用户编号userid
+
+    /**
+     * 用户编号userid
+     */
 	private	 Integer userid;
-	//用户邮箱email
+
+    /**
+     * 用户邮箱email
+	 */
 	private String email;
-	//用户密码userpwd
+
+    /**
+     * 用户密码userpwd
+	 */
 	private String userpwd;
 	/**
 	 * 以下为待完整的用户信息，在注册时不需要具体填写
+     *
+     * 用户简介
 	 */
-	//用户简介
+
 	private String resume;
-	//用户昵称
+
+    /**
+     * 用户昵称
+	 */
 	private String nickname;
-	//用户头像相对路径
+
+    /**
+     * 用户头像相对路径
+	 */
 	private String faceimg;
-	//用户性别
+
+    /**
+     * 用户性别
+	 */
 	private String sex;
-	//用户爱好
+
+    /**
+     * 用户爱好
+	 */
 	private String hobby;
-	
-	//无参构造器
+
+
+    /**
+     * 无参构造器
+	 */
 	public User() {
 		super();
-	}
-	
-	//不带主键必填信息构造器
+    }
+
+
+    /**
+     * 不带主键必填信息构造器
+     * @param email
+     * @param userpwd
+     * @param nickname
+	 */
 	public User(String email, String userpwd, String nickname) {
 		super();
 		this.email = email;
 		this.userpwd = userpwd;
 		this.nickname = nickname;
-	}
+    }
 
-	//必填信息构造器
+
+    /**
+     * 必填信息构造器
+     * @param userid
+     * @param email
+     * @param userpwd
+     * @param nickname
+	 */
 	public User(Integer userid, String email, String userpwd,String nickname) {
 		super();
 		this.userid = userid;
 		this.email = email;
 		this.userpwd = userpwd;
 		this.nickname = nickname;
-	}
+    }
 
-	//不带主键构造器
+
+    /**
+     * 不带主键构造器
+     * @param email
+     * @param userpwd
+     * @param resume
+     * @param nickname
+     * @param faceimg
+     * @param sex
+     * @param hobby
+	 */
 	public User(String email, String userpwd, String resume, String nickname,
 			String faceimg, String sex, String hobby) {
 		super();
@@ -61,9 +110,20 @@ public class User implements Serializable{
 		this.faceimg = faceimg;
 		this.sex = sex;
 		this.hobby = hobby;
-	}
-	
-	//全构造器
+    }
+
+
+    /**
+     * 全构造器
+     * @param userid
+     * @param email
+     * @param userpwd
+     * @param resume
+     * @param nickname
+     * @param faceimg
+     * @param sex
+     * @param hobby
+	 */
 	public User(Integer userid, String email, String userpwd, String resume,
 			String nickname, String faceimg, String sex, String hobby) {
 		super();
@@ -75,9 +135,13 @@ public class User implements Serializable{
 		this.faceimg = faceimg;
 		this.sex = sex;
 		this.hobby = hobby;
-	}
-	
-	//getter和setter方法
+    }
+
+
+    /**
+     * getter和setter方法
+     * @return
+	 */
 	public Integer getUserid() {
 		return userid;
 	}
@@ -140,18 +204,26 @@ public class User implements Serializable{
 
 	public void setHobby(String hobby) {
 		this.hobby = hobby;
-	}
-	
-	//重写toString()
+    }
+
+
+    /**
+     * 重写toString
+     * @return
+	 */
 	@Override
 	public String toString() {
 		return "User [email=" + email + ", faceimg=" + faceimg + ", hobby="
 				+ hobby + ", nickname=" + nickname + ", resume=" + resume
 				+ ", sex=" + sex + ", userid=" + userid + ", userpwd="
 				+ userpwd + "]";
-	}
-	
-	//重写hashCode()和equals()方法
+    }
+
+
+    /**
+     * 重写hashCode()和equals()方法
+     * @return
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -162,18 +234,20 @@ public class User implements Serializable{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+        if (this == obj) {
 			return true;
-		if (obj == null)
+        }
+        if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
 			return false;
-		com.tarena.entity.User other = (com.tarena.entity.User) obj;
+        }
+        User other = (User) obj;
 		if (userid == null) {
-			if (other.userid != null)
-				return false;
-		} else if (!userid.equals(other.userid))
-			return false;
-		return true;
+            return other.userid == null;
+        } else {
+            return userid.equals(other.userid);
+		}
 	}
 }

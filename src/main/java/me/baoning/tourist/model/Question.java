@@ -8,23 +8,53 @@ import java.sql.Date;
  *
  */
 public class Question {
-	//问答编号
+
+	/**
+	 * 问答编号
+	 */
 	private Integer qid;
-	//发布者编号
+
+	/**
+	 * 发布者编号
+	 */
 	private Integer uid;
-	//发布时间
+
+	/**
+	 * 发布时间
+	 */
 	private Date qtime;
-	//提问的内容
+
+	/**
+	 * 提问的内容
+	 */
 	private String present;
-	//问题的状态
+
+	/**
+	 * 问题的状态
+	 */
 	private String state;
-	//问答的标题
+
+	/**
+	 * 问答的标题
+	 */
 	private String qtitle;
-	//无参数构造器
+
+	/**
+	 * 无参数构造器
+	 */
 	public Question() {
 		super();
 	}
-	//去问答类主键构造器
+
+
+	/**
+	 * 去问答类主键构造器
+	 * @param uid
+	 * @param qtime
+	 * @param present
+	 * @param state
+	 * @param qtitle
+	 */
 	public Question(Integer uid, Date qtime, String present, String state,
 			String qtitle) {
 		super();
@@ -34,7 +64,17 @@ public class Question {
 		this.state = state;
 		this.qtitle = qtitle;
 	}
-	//全构造器
+
+
+	/**
+	 * 全构造器
+	 * @param qid
+	 * @param uid
+	 * @param qtime
+	 * @param present
+	 * @param state
+	 * @param title
+	 */
 	public Question(Integer qid, Integer uid, Date qtime, String present,
 			String state, String title) {
 		super();
@@ -45,7 +85,12 @@ public class Question {
 		this.state = state;
 		this.qtitle = qtitle;
 	}
-	//问答类的getter和setter方法
+
+
+	/**
+	 * 问答类的getter和setter方法
+	 * @return
+	 */
 	public Integer getQid() {
 		return qid;
 	}
@@ -82,7 +127,12 @@ public class Question {
 	public void setQtitle(String qtitle) {
 		this.qtitle = qtitle;
 	}
-	//重写toString()方法 equals()和hasCode()方法
+
+
+	/**
+	 * 重写toString()方法 equals()和hasCode()方法
+	 * @return
+	 */
 	@Override
 	public String toString() { 
 		return "Question [present=" + present + ", qid=" + qid + ", qtime="
@@ -98,18 +148,23 @@ public class Question {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
-		com.tarena.entity.Question other = (com.tarena.entity.Question) obj;
+		}
+		Question other = (Question) obj;
 		if (qid == null) {
-			if (other.qid != null)
+			if (other.qid != null) {
 				return false;
-		} else if (!qid.equals(other.qid))
+			}
+		} else if (!qid.equals(other.qid)) {
 			return false;
+		}
 		return true;
 	}
 	
