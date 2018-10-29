@@ -26,6 +26,7 @@ public class MyBatisOperatorDao implements OperatorDao{
 	 * 连接OperatorDao接口(活跃)与OperatorMapper接口
 	 * 根据管理员名查找管理员
 	 * */
+	@Override
 	public Operator findByOpname(String opname) {
 		return sqlSessionTemplate.selectOne("findByOpname",opname);
 	}

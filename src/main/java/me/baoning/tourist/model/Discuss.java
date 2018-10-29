@@ -8,6 +8,8 @@ import java.sql.Date;
  * @author qyn
  */
 public class Discuss {
+
+
     /**
      * 评论实体类的编号
      */
@@ -38,6 +40,7 @@ public class Discuss {
 
     private String present;
 
+
     /**
      * 无参数构造器
      */
@@ -49,7 +52,6 @@ public class Discuss {
     /**
      * 去除主键操作器
      */
-
     public Discuss(Integer type, Integer pid, Integer uid, Date ptime,
                    String present) {
         super();
@@ -63,7 +65,6 @@ public class Discuss {
     /**
      * 全参数构造器
      */
-
     public Discuss(Integer id, Integer type, Integer pid, Integer uid,
                    Date ptime, String present) {
         super();
@@ -78,7 +79,6 @@ public class Discuss {
     /**
      * 各属性getter和setter方法
      */
-
     public Integer getId() {
         return id;
     }

@@ -8,6 +8,12 @@ import me.baoning.tourist.model.Operator;
  * 
  */
 public interface OperatorDao {
-	//根据管理员名查找管理员
+
+	/**
+	 * 根据管理员名查找管理员
+	 *
+	 * @param opname
+	 * @return
+	 */
 	Operator findByOpname(String opname);
 }
