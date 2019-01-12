@@ -7,7 +7,7 @@ import me.baoning.tourist.model.ViewSpot;
 import me.baoning.tourist.service.NewService;
 import me.baoning.tourist.service.TravelsService;
 import me.baoning.tourist.service.UserService;
-import me.baoning.tourist.service.VeiwService;
+import me.baoning.tourist.service.ViewService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -33,7 +33,7 @@ public class CheckController {
 	
 	//注入veiwService
 	@Resource
-	private VeiwService veiwService;
+    private ViewService veiwService;
 	
 	//注入NewService
 	@Resource

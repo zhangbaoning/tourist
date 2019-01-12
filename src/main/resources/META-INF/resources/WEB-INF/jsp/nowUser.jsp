@@ -1,10 +1,10 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8" %>
 <%@taglib  prefix="c" 
 	uri="http://java.sun.com/jsp/jstl/core" %> 
 <html>
 <head>
 	<meta>
-	<title>addQuestion</title>
+	<title>nowUser</title>
 
 	<link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
 
@@ -25,7 +25,6 @@
 	<![endif]-->
 
 	<link rel="stylesheet" href="../css/fancybox.css" type="text/css" media="screen" />
-
 </head>
 <body>
 
@@ -35,7 +34,7 @@
 
 		<p class="left">南通旅游攻略网欢迎你！ | 
 			<c:if test="${nowuser.nickname==null}"><a href="../index/login.do">登陆</a></c:if>
-			<c:if test="${nowuser.nickname!=null}"><a href="../index/userDetail.do">${nowuser.nickname}</a> |<a href="../index/login.do">切换用户</a> </c:if>
+			<c:if test="${nowuser.nickname!=null}"><a href="../index/userDetail.do">${nowuser.nickname}</a> |<a href="../userDetail/loadUser.do">修改资料</a> |<a href="../index/login.do">切换用户</a> </c:if>
 		</p>
 
 		<p class="right">本网站是个人作品  | <strong>   无任何商业用途 </strong></p>
@@ -68,7 +67,7 @@
 	<div class="container">
 
 		<ul>
-			<li><a href="../index/index.do">主页</a></li>
+				<li><a href="../index/index.do">主页</a></li>
 			<li><a href="../index/allVeiw.do">景点介绍</a></li>
 			<li><a href="../index/allNews.do">新闻通告</a></li>
 			<li><a href="../index/allTravels.do ">游记一览</a></li>
@@ -96,96 +95,59 @@
 
 			<!-- end #archives -->
 			<!-- end .search-result -->
-			<h1>我要提问 ：</h1>	
+			<h1>我的个人信息：</h1>
+			 <form  enctype="multipart/form-data" onsubmit="return valiNowUserNull();" action="../updateUser/updateUserOk.do"  method="post">
+				<div style="float:left">
+						<ul>
+				<li>
+					<label>1.	头像：</label><br>
+					<input type="file" name="file"  id="file"   onchange="PreviewImage(this,'imgHeadPhoto','divPreview')"  />   <br/>
+            		<div id="divPreview">
+                       <img id="imgHeadPhoto"   name="imgHeadPhoto"  width="210"  height="210" src="../user/${nowuser.nickname}/${nowuser.faceimg}">
+            		</div>
+                </li>
 			
-			<div id="respond" class="box">
-			
-				<div class="box-header">
+				<li>
+					 <br>
+					 <label >邮箱：</label>	
+                     <input disabled="disabled"   class="common-text required" id="email" name="email" size="22" value="${nowuser.email}" type="text" onblur="valiEmail();">
+                	 <br>
+                	 <br>
+                	 <label >昵称：</label>	
+                     <input class="common-text required" id="nickname" name="nickname" size="22" value="${nowuser.nickname}" type="text" onblur="valiNickname();">
+                	 <br>
+                	 <br>
+                	 <label >密码：</label>
+                     <input class="common-text required" id="userpwd" name="userpwd" size="22" value="${nowuser.userpwd}" type="text" onblur="valiUserpwd();">
+                 	  <span style="color:#F00"  id="userpwd1"></span><br>
+                 	  <br>
+                 	  <br><span style="color:#F00"  id="nerror"></span><br>
+                 </li>
+                 <li>
+					 <br>
+					 <label >简介：</label>	
+                     <input class="common-text required" id="resume" name="resume" size="22" value="${nowuser.resume}" type="text" onblur="valiResume();">
+                	 <br>
+                	 <br>
+                	 <label >性别：</label>	
+                     <input class="common-text required" id="sex" name="sex" size="22" value="${nowuser.sex}" type="text" onblur="valiSex();">
+                	 <br>
+                	 <br>
+                	 <label >爱好：</label>
+                     <input class="common-text required" id="hobby" name="hobby" size="22" value="${nowuser.hobby}" type="text" onblur="valiHobby();">
+                 	  <br>
+                 	  <br>
+                 </li>
+                 
+                 <li>
+                 	<input type="submit" value="确认修改">
+                 </li>
 				
-					<h6 class="align-left">请填写完整：</h6>
-
-					<p class="align-right">
-						<strong>以下内容上传至服务器审核</strong>
-					</p>
-					
-				</div>
-				
-				<form enctype="multipart/form-data" onsubmit="return valiQuestionNull();" action="../addQuestion/addQuestion.do"  method="post">
-
-						<p>
-							<label>问题标题<span>(*必填)</span></label>
-							<input  name="qtitle"  id="qtitle"  onblur="valiQtitle();">
-						</p>
-	
-						
-						<label>问题内容：(*必填，不超过一百个字)</label>	
-						<p>
-							<textarea id="qpresent" name="qpresent" rows="10" cols="85" onblur="valiQpresent();"></textarea>
-						</p>
-						<p>
-							<input type="submit" name="submit" value="发布问题" class="submit" />
-						</p>
-						<span style="color:#F00"  id="qerror"></span><br>
-				</form>
-				
-			</div><!-- end #respond -->
-
-		</div><!-- end .entry -->
-
-		<div id="sidebar">
-
-			<div class="ads box">
-
-				<ul>
-					<li>
-						<a href="../userDetail/addTravels.do"><img width="125" height="125" src="../img/youji.png" alt="Themeforest"></a>
-					</li>
-					<li class="even">
-						<a href="../userDetail/addQuestion.do"><img width="125" height="125" src="../img/tiwen.png" alt="Graphicriver"></a>
-					</li>
-				</ul>
-				
-			</div><!-- end .ads -->
-			
-			<div class="tags box">
-
-				<div class="box-header">
-
-					<h6>关注</h6>
-
-				</div><!-- end .box-header -->
-
-
-			</div>
-			
-			<div class="tags box">
-
-				<div class="box-header">
-
-					<h6>粉丝</h6>
-
-				</div><!-- end .box-header -->
-
-
-			</div>
-			
-			<!-- end #recent-tabs -->
-
-			<div class="flickr-feed box">
-
-				<div class="box-header">
-
-					<h6 class="align-left"><img src="../img/icon-flickr-feed.png" alt="icon-flickr-feed" class="flickr-icon" /> 最近访客</h6>
-
-
-				</div><!-- end .box-header -->
-
-			</div><!-- end .flickr-feed -->
-
-			<!-- end .tags -->
-
-
-		</div><!-- end #sidebar -->
+         	</ul>
+				</div>         	
+        	</form>
+        
+		</div><!-- end #main -->
 
 		<div class="clear"></div>
 

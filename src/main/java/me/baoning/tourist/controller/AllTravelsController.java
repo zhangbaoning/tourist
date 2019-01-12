@@ -1,6 +1,6 @@
 package me.baoning.tourist.controller;
 
-import com.tarena.entity.TravelsMore;
+import me.baoning.tourist.model.TravelsMore;
 import me.baoning.tourist.service.TravelsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

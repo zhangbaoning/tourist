@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
- <mapper namespace="com.tarena.entity.TravelsMapper">
+<mapper namespace="me.baoning.tourist.model.TravelsMapper">
  	
  	<!-- 根据游记图片路径查询该用户是否用过该路径-->
- 	<select id="findByTravelsphoto" parameterType="com.tarena.entity.Travels" resultType="com.tarena.entity.Travels">
+    <select id="findByTravelsphoto" parameterType="me.baoning.tourist.model.Travels"
+            resultType="me.baoning.tourist.model.Travels">
  		select * from travels where travelsphoto=#{travelsphoto} and uid=#{uid}
  	</select>
  	
  	<!-- 根据游记内容路径查询该用户是否用过该路径-->
- 	<select id="findByTpresent" parameterType="com.tarena.entity.Travels" resultType="com.tarena.entity.Travels">
+    <select id="findByTpresent" parameterType="me.baoning.tourist.model.Travels"
+            resultType="me.baoning.tourist.model.Travels">
  		select * from travels where present=#{present} and uid=#{uid}
  	</select>
  	
  	<!-- 插入新游记-->
- 	<insert id="insertTravels"  parameterType="com.tarena.entity.Travels">
+    <insert id="insertTravels" parameterType="me.baoning.tourist.model.Travels">
  		insert into travels (uid,title,atime,present,travelsphoto,state) values(#{uid},#{title},#{atime},#{present},#{travelsphoto},#{state}
  		) 
  	</insert>
@@ -25,12 +27,12 @@
  	</select>
  	
  	<!-- 查找所有游记信息-->
- 	<select id="findAlltravels"  resultType="com.tarena.entity.Travels">
+    <select id="findAlltravels" resultType="me.baoning.tourist.model.Travels">
  		select * from travels order by atime desc 
  	</select>
  	
  	 <!--根据关键字模糊查询-->
- 	<select id="mfindtravels" parameterType="java.lang.String" resultType="com.tarena.entity.Travels">
+    <select id="mfindtravels" parameterType="java.lang.String" resultType="me.baoning.tourist.model.Travels">
  		select * from travels where  tid like binary "%"#{keywords}"%" 
  		or title like binary "%"#{keywords}"%"
  		or present like binary "%"#{keywords}"%"
@@ -46,7 +48,7 @@
  	</delete>
  	
  	<!-- 根据游记ID查找游记-->
- 	<select id="findByTid"  parameterType="java.lang.Integer" resultType="com.tarena.entity.Travels">
+    <select id="findByTid" parameterType="java.lang.Integer" resultType="me.baoning.tourist.model.Travels">
  		select * from travels where tid=#{tid}
  	</select>
  	
@@ -56,7 +58,7 @@
  	</update>
  	
  	<!--根据用户编号查询其所有游记-->
- 	<select id="findAllTravelsById"  parameterType="java.lang.Integer" resultType="com.tarena.entity.Travels">
+    <select id="findAllTravelsById" parameterType="java.lang.Integer" resultType="me.baoning.tourist.model.Travels">
  		select * from travels where uid=#{userid}
  	</select>
  	

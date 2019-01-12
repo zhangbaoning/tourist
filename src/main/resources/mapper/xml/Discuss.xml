@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
- <mapper namespace="com.tarena.entity.DiscussMapper">
+<mapper namespace="me.baoning.tourist.model.DiscussMapper">
  	<!-- 查询所有评论数-->
  	<select id="countDiscussNum" resultType="java.lang.Integer">
  		select count(id) from discuss
  	</select>
  	
  	<!-- 查询所有新闻-->
- 	<select id="findAllDiscuss" resultType="com.tarena.entity.Discuss">
+	<select id="findAllDiscuss" resultType="me.baoning.tourist.model.Discuss">
  		select * from discuss
  	</select>
  	
  	<!-- 根据关键字模糊查找评论信息 -->
- 	<select id="mfindDiscuss"   parameterType="java.lang.String" resultType="com.tarena.entity.Discuss">
+	<select id="mfindDiscuss" parameterType="java.lang.String" resultType="me.baoning.tourist.model.Discuss">
  		select * from discuss where  id like binary "%"#{keywords}"%" 
  		or type like binary "%"#{keywords}"%"
  		or pid like binary "%"#{keywords}"%"
@@ -27,27 +27,27 @@
  	</delete>
  	
  	<!-- 插入新评论-->
- 	<insert id="insertDiscuss" parameterType="com.tarena.entity.Discuss">
+	<insert id="insertDiscuss" parameterType="me.baoning.tourist.model.Discuss">
  		 insert into discuss (type,pid,uid,ptime,present) values(#{type},#{pid},#{uid},#{ptime},#{present})
  	</insert>
  	
  	<!-- 根据景点信息号查找评论-->
- 	<select id="findDiscussByVid"  parameterType="java.lang.Integer"  resultType="com.tarena.entity.Discuss">
+	<select id="findDiscussByVid" parameterType="java.lang.Integer" resultType="me.baoning.tourist.model.Discuss">
  		select * from discuss where pid=#{vid} and type=2
  	</select>
  	
  	<!-- 根据新闻信息号查找评论-->
- 	<select id="findDiscussByNid"  parameterType="java.lang.Integer"  resultType="com.tarena.entity.Discuss">
+	<select id="findDiscussByNid" parameterType="java.lang.Integer" resultType="me.baoning.tourist.model.Discuss">
  		select * from discuss where pid=#{nid}	and type=1
  	</select>
  	
  	<!-- 根据问答信息号查找评论-->
- 	<select id="findDiscussByQid"  parameterType="java.lang.Integer"  resultType="com.tarena.entity.Discuss">
+	<select id="findDiscussByQid" parameterType="java.lang.Integer" resultType="me.baoning.tourist.model.Discuss">
  		select * from discuss where pid=#{qid}	and type=4
  	</select>
  	
  	<!-- 根据游记号查找评论-->
- 	<select id="findDiscussByTid"  parameterType="java.lang.Integer"  resultType="com.tarena.entity.Discuss">
+	<select id="findDiscussByTid" parameterType="java.lang.Integer" resultType="me.baoning.tourist.model.Discuss">
  		select * from discuss where pid=#{tid}	and type=3
  	</select>
  </mapper>

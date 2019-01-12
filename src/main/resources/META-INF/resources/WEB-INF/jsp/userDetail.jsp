@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 	<head>
 		<meta>
-		<title>allNews</title>
+		<title>userDetail</title>
 
 		<link rel="stylesheet" href="../css/reset.css" type="text/css"
 			media="screen" />
@@ -40,7 +40,9 @@
 						<a href="../index/login.do">登陆</a>
 					</c:if>
 					<c:if test="${nowuser.nickname!=null}">
-						<a href="#">${nowuser.nickname}</a> |<a href="../index/login.do">切换用户</a>
+						<a href="../index/userDetail.do">${nowuser.nickname}</a> |<a
+							href="../userDetail/loadUser.do">修改资料</a> |<a
+							href="../index/login.do">切换用户</a>
 					</c:if>
 				</p>
 
@@ -119,30 +121,59 @@
 			<div class="container">
 
 				<div id="main">
-					<h1>
-						新闻信息：
-					</h1>
-					<c:forEach var="news" items="${newLists}">
 
-						<div class="entry collapsible">
+					<!-- end #archives -->
+					<!-- end .search-result -->
+					<h1>
+						我的游记：
+					</h1>
+
+					<c:forEach var="travelsMore" items="${travelsMoreLists}">
+
+						<div class="entry">
 
 							<div class="entry-header">
 
-								<img src="../newphoto/${news.newphoto}3.png" width="60"
-									height="60" alt="" class="entry-title-image">
-
 								<h2 class="title">
-									${news.ntitle}
+									<a
+										href="../index/travelsDetail.do?tid=${travelsMore.travels.tid}">${travelsMore.travels.title}</a>
 								</h2>
 
 								<p class="meta">
-									发布时间:${news.stime} 来自：${news.quarry}
+									创建时间：${travelsMore.travels.atime}
+									发布者：${travelsMore.user.nickname}
 								</p>
 
-								<a href="../index/newsDetail.do?nid=${news.nid}" class="button">阅读全文...</a>
+								<a
+									href="../index/travelsDetail.do?tid=${travelsMore.travels.tid}"
+									class="button">详情...</a>
 
 							</div>
 							<!-- end .entry-header -->
+
+							<div class="entry-content">
+
+								<a
+									href="../index/travelsDetail.do?tid=${travelsMore.travels.tid}"><img
+										src="../travels/${travelsMore.user.nickname}/${travelsMore.travels.present}2.png"
+										width="240" height="140" alt="" class="entry-image" />
+								</a>
+
+								<p>
+									${travelsMore.present1}
+								</p>
+
+								<hr />
+
+								<ul class="entry-links">
+									<li>
+										${travelsMore.discussNum} 条评论
+										<span class="separator">|</span>
+									</li>
+								</ul>
+
+							</div>
+							<!-- end .entry-content -->
 
 						</div>
 						<!-- end .entry -->
@@ -154,16 +185,16 @@
 							scope="request"></c:if>
 						<c:if test="${!n1}">
 							<li class="prev">
-								<a href="../allNews/changeNewPage.do?page=${nowPage-1}">上一页</a>
+								<a href="../allTravels/changeTravelsPage.do?page=${nowPage-1}">上一页</a>
 							</li>
 						</c:if>
 						<li>
-							第 ${nowPage} 页 /共 ${newPage} 页
+							第 ${nowPage} 页 /共 ${travelsPage} 页
 						</li>
-						<c:if test="${nowPage eq newPage}" var="n2" scope="request"></c:if>
+						<c:if test="${nowPage eq travelsPage}" var="n2" scope="request"></c:if>
 						<c:if test="${!n2}">
 							<li class="next">
-								<a href="../allNews/changeNewPage.do?page=${nowPage+1}">下一页</a>
+								<a href="../allTravels/changeTravelsPage.do?page=${nowPage+1}">下一页</a>
 							</li>
 						</c:if>
 					</ul>
@@ -178,7 +209,8 @@
 						<ul>
 							<li>
 								<a href="../userDetail/addTravels.do"><img width="125"
-										height="125" src="../img/youji.png" alt="Themeforest"> </a>
+										height="125" src="../img/youji.png" alt="Themeforest">
+								</a>
 							</li>
 							<li class="even">
 								<a href="../userDetail/addQuestion.do"><img width="125"
@@ -204,6 +236,7 @@
 						<!-- end .box-header -->
 
 						<div class="list-wrap">
+
 							<ul id="recent-tabs-posts">
 								<c:forEach var="userquestion" items="${userquestionList}">
 
@@ -221,7 +254,6 @@
 								</c:forEach>
 
 							</ul>
-
 							<!-- end #recent-tabs-comments -->
 
 						</div>
@@ -235,126 +267,119 @@
 				</div>
 				<!-- end #sidebar -->
 
-				<div class="clear"></div>
+				<div id="footer">
 
-			</div>
-			<!-- end .container -->
+					<div class="container clearfix">
 
-		</div>
-		<!-- end #content -->
+						<a href="../index/index.do"><img src="../img/footer-logo.png"
+								alt="footer-logo" class="footer-logo" />
+						</a>
 
-		<div id="footer">
+						<div class="one-third">
 
-			<div class="container clearfix">
-
-				<a href="../index/index.do"><img src="../img/footer-logo.png"
-						alt="footer-logo" class="footer-logo" /> </a>
-
-				<div class="one-third">
-
-					<h4>
-						关于我们的网站
-					</h4>
-
-					<p>
-						本网站名为南通旅游攻略网,是分享南通旅游行程的一个平台。本网站是个人作品网站，不涉及任何商业操作。
-					</p>
-
-					<strong>作者 qyn</strong>
-
-				</div>
-				<!-- end .one-third -->
-
-				<div class="one-fourth">
-
-					<h4>
-						导航
-					</h4>
-
-					<ul id="categories">
-						<li>
-							<a href="#">景点介绍</a>
-						</li>
-						<li>
-							<a href="#">新闻通告</a>
-						</li>
-						<li>
-							<a href="#">游记一览</a>
-						</li>
-						<li>
-							<a href="#">问答模块</a>
-						</li>
-					</ul>
-
-				</div>
-				<!-- end .one-fourth -->
-
-				<div class="two-fifth last">
-
-					<h4>
-						<span>其他</span> 事项
-					</h4>
-
-					<ul id="latest-tweets">
-
-						<li>
 							<h4>
-								1.关于网站建设
+								关于我们的网站
 							</h4>
-							<p class="tweet">
-								如果合理提议请联系管理员！
-							</p>
-						</li>
-						<li>
-							<h4>
-								2.关于发帖内容
-							</h4>
-							<p class="tweet">
-								请发布符合实际，和谐的内容，管理员会对发帖内容进行审核！
-							</p>
-						</li>
 
-					</ul>
-					<!-- end #latest-tweets -->
+							<p>
+								本网站名为南通旅游攻略网,是分享南通旅游行程的一个平台。本网站是个人作品网站，不涉及任何商业操作。
+							</p>
+
+							<strong>作者 qyn</strong>
+
+						</div>
+						<!-- end .one-third -->
+
+						<div class="one-fourth">
+
+							<h4>
+								导航
+							</h4>
+
+							<ul id="categories">
+								<li>
+									<a href="#">景点介绍</a>
+								</li>
+								<li>
+									<a href="#">新闻通告</a>
+								</li>
+								<li>
+									<a href="#">游记一览</a>
+								</li>
+								<li>
+									<a href="#">问答模块</a>
+								</li>
+							</ul>
+
+						</div>
+						<!-- end .one-fourth -->
+
+						<div class="two-fifth last">
+
+							<h4>
+								<span>其他</span> 事项
+							</h4>
+
+							<ul id="latest-tweets">
+
+								<li>
+									<h4>
+										1.关于网站建设
+									</h4>
+									<p class="tweet">
+										如果合理提议请联系管理员！
+									</p>
+								</li>
+								<li>
+									<h4>
+										2.关于发帖内容
+									</h4>
+									<p class="tweet">
+										请发布符合实际，和谐的内容，管理员会对发帖内容进行审核！
+									</p>
+								</li>
+
+							</ul>
+							<!-- end #latest-tweets -->
+
+						</div>
+						<!-- end .one-misc -->
+
+					</div>
+					<!-- end .container -->
 
 				</div>
-				<!-- end .one-misc -->
+				<!-- end #footer -->
 
-			</div>
-			<!-- end .container -->
+				<div id="footer-bottom">
 
-		</div>
-		<!-- end #footer -->
+					<div class="container">
 
-		<div id="footer-bottom">
+						<p class="align-left">
+							感谢你的使用！
+						</p>
 
-			<div class="container">
+						<ul class="align-right">
+							<p>
+								如果有BUG请联系管理员！
+							</p>
+						</ul>
 
-				<p class="align-left">
-					感谢你的使用！
-				</p>
+					</div>
+					<!-- end .container -->
 
-				<ul class="align-right">
-					<p>
-						如果有BUG请联系管理员！
-					</p>
-				</ul>
+				</div>
+				<!-- end #footer-bottom -->
 
-			</div>
-			<!-- end .container -->
-
-		</div>
-		<!-- end #footer-bottom -->
-
-		<!-- start scripts -->
-		<script src="../js/jquery.min.js"></script>
-		<script src="../js/jquery.cycle.all.min.js"></script>
-		<script src="../js/jquery.easing.1.3.js"></script>
-		<script src="../js/organictabs.jquery.js"></script>
-		<script src="../js/jquery.fancybox-1.3.4.pack.js"></script>
-		<script src="../js/css3-mediaqueries.js"></script>
-		<script src="../js/custom.js"></script>
-		<!--[if IE]> <script src="js/selectivizr.js"></script> <![endif]-->
-		<!-- end scripts -->
+				<!-- start scripts -->
+				<script src="../js/jquery.min.js"></script>
+				<script src="../js/jquery.cycle.all.min.js"></script>
+				<script src="../js/jquery.easing.1.3.js"></script>
+				<script src="../js/organictabs.jquery.js"></script>
+				<script src="../js/jquery.fancybox-1.3.4.pack.js"></script>
+				<script src="../js/css3-mediaqueries.js"></script>
+				<script src="../js/custom.js"></script>
+				<!--[if IE]> <script src="js/selectivizr.js"></script> <![endif]-->
+				<!-- end scripts -->
 	</body>
 </html>

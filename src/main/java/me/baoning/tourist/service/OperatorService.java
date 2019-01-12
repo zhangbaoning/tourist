@@ -1,7 +1,7 @@
 package me.baoning.tourist.service;
 
-import com.tarena.entity.Operator;
 import me.baoning.tourist.dao.OperatorDao;
+import me.baoning.tourist.model.Operator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class OperatorService implements Serializable{
      * @return
      * @throws IOException
      */
-	public Operator login(String opname,String oppwd) throws IOException{
+	public Operator login(String opname, String oppwd) throws IOException {
 
 		Operator operator=operatorDao.findByOpname(opname);
 		if(operator==null||!oppwd.equals(operator.getOppwd())){

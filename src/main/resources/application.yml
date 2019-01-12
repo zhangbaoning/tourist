@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:mysql://ali.baoning.club:3306/tourist
+    username: root
+    password: 1102
+    driver-class-name: com.mysql.jdbc.Driver
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+
+mybatis:
+  mapper-locations: classpath:mapper/xml/*.xml

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
- <mapper namespace="com.tarena.entity.QuestionMapper">
+<mapper namespace="me.baoning.tourist.model.QuestionMapper">
 	<!-- 发布新问题 -->
-	<insert id="insertQuestion" parameterType="com.tarena.entity.Question">
+    <insert id="insertQuestion" parameterType="me.baoning.tourist.model.Question">
 		insert into question (uid,qtime,present,state,qtitle) values(#{uid},#{qtime},#{present},#{state},#{qtitle})
 	</insert>
 	
 	<!-- 查询所有问答，根据状态，发布时间排序 -->
-	<select id="findAllQuestion" resultType="com.tarena.entity.Question">
+    <select id="findAllQuestion" resultType="me.baoning.tourist.model.Question">
 		select * from question order by qtime desc
 	</select>
 	
@@ -18,7 +18,7 @@
 	</select>
 	
 	<!-- 模糊查找 问答-->
-	<select id="mfindQuestion"  resultType="com.tarena.entity.Question" parameterType="java.lang.String">
+    <select id="mfindQuestion" resultType="me.baoning.tourist.model.Question" parameterType="java.lang.String">
 		select * from question where qid  like binary "%"#{keywords}"%"
 			or uid like binary "%"#{keywords}"%"
 				or qtime like binary "%"#{keywords}"%"
@@ -33,12 +33,12 @@
 	</delete>
 	
 	<!--查询未解决问题 -->
-	<select id="findQuestionByState" resultType="com.tarena.entity.Question">
+    <select id="findQuestionByState" resultType="me.baoning.tourist.model.Question">
 		select * from question where state='未解决' order by qtime
 	</select>
 	
 	<!--根据问题编号查询问题 -->
-	<select id="findByQid"  parameterType="java.lang.Integer" resultType="com.tarena.entity.Question">
+    <select id="findByQid" parameterType="java.lang.Integer" resultType="me.baoning.tourist.model.Question">
 		select * from question where qid=#{qid}
 	</select>
  </mapper>

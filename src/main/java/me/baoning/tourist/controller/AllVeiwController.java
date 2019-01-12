@@ -1,7 +1,7 @@
 package me.baoning.tourist.controller;
 
 import me.baoning.tourist.model.ViewSpot;
-import me.baoning.tourist.service.VeiwService;
+import me.baoning.tourist.service.ViewService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,10 +18,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/allVeiw")
 public class AllVeiwController {
-	
-	//注入VeiwService
+
+	//注入viewService
 	@Resource
-	private VeiwService veiwService;
+	private ViewService viewService;
 	
 	@RequestMapping("/changeVeiwPage.do")
 	//上一页下一页操作

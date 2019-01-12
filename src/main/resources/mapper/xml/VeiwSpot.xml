@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
- <mapper namespace="com.tarena.entity.VeiwSpotMapper">
+<mapper namespace="me.baoning.tourist.model.ViewSpotMapper">
  	<!-- 查询所有用户数-->
  	<select id="countVeiwNum" resultType="java.lang.Integer">
- 		select count(vid) from veiwspot
+		select count(vid)
+		from ViewSpot
  	</select>
  	
  	<!-- 根据当前页面数查找应显示用户-->
- 	<select id="findAllVeiwSpot" resultType="com.tarena.entity.VeiwSpot">
- 		select * from veiwspot
+	<select id="findAllViewSpot" resultType="me.baoning.tourist.model.ViewSpot">
+		select *
+		from ViewSpot
  	</select>
  	
  	<!-- 插入新景点信息-->
- 	<insert id="insertVeiw"  parameterType="com.tarena.entity.VeiwSpot">
- 		insert into veiwspot (vname,present,veiwphoto) values(#{vname},#{present},#{veiwphoto})
+	<insert id="insertVeiw" parameterType="me.baoning.tourist.model.ViewSpot">
+		insert into ViewSpot (vname, present, veiwphoto)
+		values (#{vname}, #{present}, #{veiwphoto})
  	</insert>
  	
  	 <!--根据关键字模糊查询-->
- 	<select id="mfindVeiw" parameterType="java.lang.String" resultType="com.tarena.entity.VeiwSpot">
- 		select * from veiwspot where  vname like binary "%"#{keywords}"%" 
+	<select id="mfindVeiw" parameterType="java.lang.String" resultType="me.baoning.tourist.model.ViewSpot">
+		select *
+		from ViewSpot
+		where vname like binary "%"#{keywords}"%"
  		or present like binary "%"#{keywords}"%"
  		or veiwphoto like binary "%"#{keywords}"%"
  		or vid like binary "%"#{keywords}"%"
@@ -27,26 +32,36 @@
  	
  	<!--根据关键字模糊查询-->
  	<delete id="deleteVeiwByVid" parameterType="java.lang.Integer">
- 		delete from veiwspot where vid=#{vid}
+		delete
+		from ViewSpot
+		where vid = #{vid}
  	</delete>
  	
  	<!--根据关键字模糊查询-->
- 	<select id="findVeiwByVid" parameterType="java.lang.Integer" resultType="com.tarena.entity.VeiwSpot">
- 		select * from veiwspot where vid=#{vid}
+	<select id="findVeiwByVid" parameterType="java.lang.Integer" resultType="me.baoning.tourist.model.ViewSpot">
+		select *
+		from ViewSpot
+		where vid = #{vid}
  	</select>
  	
  	<!-- 根据景区名查询-->
- 	<select id="findByVname" parameterType="java.lang.String" resultType="com.tarena.entity.VeiwSpot">
- 		select * from veiwspot where vname=#{vname}
+	<select id="findByVname" parameterType="java.lang.String" resultType="me.baoning.tourist.model.ViewSpot">
+		select *
+		from ViewSpot
+		where vname = #{vname}
  	</select>
  	
  	<!-- 根据景区内容路径-->
- 	<select id="findByPresent" parameterType="java.lang.String" resultType="com.tarena.entity.VeiwSpot">
- 		select * from veiwspot where present=#{present}
+	<select id="findByPresent" parameterType="java.lang.String" resultType="me.baoning.tourist.model.ViewSpot">
+		select *
+		from ViewSpot
+		where present = #{present}
  	</select>
  	
  	<!-- 根据景区图片路径-->
- 	<select id="findByVeiwPhoto" parameterType="java.lang.String" resultType="com.tarena.entity.VeiwSpot">
- 		select * from veiwspot where veiwphoto=#{veiwphoto}
+	<select id="findByVeiwPhoto" parameterType="java.lang.String" resultType="me.baoning.tourist.model.ViewSpot">
+		select *
+		from ViewSpot
+		where veiwphoto = #{veiwphoto}
  	</select>
  </mapper>

@@ -1,10 +1,10 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8" %>
 <%@taglib  prefix="c" 
 	uri="http://java.sun.com/jsp/jstl/core" %> 
 <html>
 <head>
 	<meta>
-	<title>veiwDetail</title>
+	<title>addQuestion</title>
 
 	<link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen" />
 
@@ -25,6 +25,7 @@
 	<![endif]-->
 
 	<link rel="stylesheet" href="../css/fancybox.css" type="text/css" media="screen" />
+
 </head>
 <body>
 
@@ -36,7 +37,6 @@
 			<c:if test="${nowuser.nickname==null}"><a href="../index/login.do">登陆</a></c:if>
 			<c:if test="${nowuser.nickname!=null}"><a href="../index/userDetail.do">${nowuser.nickname}</a> |<a href="../index/login.do">切换用户</a> </c:if>
 		</p>
-	
 
 		<p class="right">本网站是个人作品  | <strong>   无任何商业用途 </strong></p>
 
@@ -68,7 +68,7 @@
 	<div class="container">
 
 		<ul>
-				<li><a href="../index/index.do">主页</a></li>
+			<li><a href="../index/index.do">主页</a></li>
 			<li><a href="../index/allVeiw.do">景点介绍</a></li>
 			<li><a href="../index/allNews.do">新闻通告</a></li>
 			<li><a href="../index/allTravels.do ">游记一览</a></li>
@@ -94,127 +94,48 @@
 
 		<div id="main">
 
-			<div class="entry single">
-
-				<div class="entry-header">
-
-					<h2 class="title">${nowveiw.vname}</h2>
-
-					
-
-				</div><!-- end .entry-header -->
-
-				<div class="entry-content">
-					
-					<div class="zoom">
-						<a class="single_image" href="img/sample-images/800x600.jpg">
-							<img src="${veiwphoto2}" width="650" height="210" alt="Texas Trip 2010: Abandoned ranch" class="entry-image" />
-						</a>
-					</div>
-
-					<p>${present1}</p>
-
-		
-				</div><!-- end .entry-content -->
-
-			</div><!-- end .entry -->
-			
-			<div id="comments">
-			
-				<div class="box-header">
-				
-					<div class="align-left">
-						<span class="comments-count"><em></em></span> <h6>评论</h6>&emsp;
-					</div>
-
-					<div class="align-right">
-<!--						<strong><a href="#respond">+ADD NEW COMMENT</a></strong>-->
-					</div>
-					
-				</div>
-				
-				<ol class="comments-list">
-				
-					<c:forEach var="userDiscuss"  items="${userDiscussLists}">
-
-								<li class="comment first">
-
-									<div class="comment-avatar">
-
-										<img src="../user/${userDiscuss.user.nickname}/${userDiscuss.user.faceimg}" width="60" height="60" alt="Gravatar"
-											class="avatar" />
-
-									</div>
-									<!-- .comment-avatar -->
-
-									<div class="comment-body">
-
-										<div class="comment-meta">
-
-											<a >${userDiscuss.user.nickname}</a>,
-											<span class="date">${userDiscuss.discuss.ptime}</span>
-
-										</div>
-										<!-- .comment-meta -->
-
-										<p>
-											${userDiscuss.discuss.present}
-										</p>
-
-
-									</div>
-									<!-- .comment-body -->
-
-								</li>
-								<!-- .comment -->
-							</c:forEach>
-					</ol>
-				
-				
-			</div><!-- #comments -->
-			 <div class="list-page">
-                    	<c:if test="${nowPage eq 1||nowPage eq 0}"  var="n1" scope="request"></c:if>
-						<c:if test="${!n1}">	
-							<li class="prev"><a href="../veiwDetail/changeDiscussPage.do?page=${nowPage-1}">上一页</a></li>
-						</c:if>
-                    			第 ${nowPage} 页 /共 ${userDiscussPage} 页
-                    	<c:if test="${nowPage eq userDiscussPage}"  var="n2" scope="request"></c:if>
-                    	<c:if test="${!n2}">	
-                    		<li><a class="next" href="../veiwDetail/changeDiscussPage.do?page=${nowPage+1}">下一页</a></li>
-                    	</c:if>
-            </div>
+			<!-- end #archives -->
+			<!-- end .search-result -->
+			<h1>我要提问 ：</h1>	
 			
 			<div id="respond" class="box">
 			
 				<div class="box-header">
 				
-					<h6 class="align-left">我要评论</h6>
+					<h6 class="align-left">请填写完整：</h6>
+
+					<p class="align-right">
+						<strong>以下内容上传至服务器审核</strong>
+					</p>
 					
 				</div>
 				
-				<form method="post" action="../veiwDetail/insertDiscuss.do?type=2&&pid=${nowveiw.vid}&&uid=${nowuser.userid}" id="comment-form" class="form clearfix">
-
-					<div class="textarea_block">
+				<form enctype="multipart/form-data" onsubmit="return valiQuestionNull();" action="../addQuestion/addQuestion.do"  method="post">
 
 						<p>
-							<label for="comment">评论内容 </label>
-							<textarea id="present"  name="present" rows="10" cols="60" class="input"></textarea>
+							<label>问题标题<span>(*必填)</span></label>
+							<input  name="qtitle"  id="qtitle"  onblur="valiQtitle();">
 						</p>
+	
 						
+						<label>问题内容：(*必填，不超过一百个字)</label>	
 						<p>
-							<input type="submit" name="submit" value="提交" class="submit" />
+							<textarea id="qpresent" name="qpresent" rows="10" cols="85" onblur="valiQpresent();"></textarea>
 						</p>
-
-					</div>
-					
+						<p>
+							<input type="submit" name="submit" value="发布问题" class="submit" />
+						</p>
+						<span style="color:#F00"  id="qerror"></span><br>
 				</form>
 				
 			</div><!-- end #respond -->
 
-		</div><!-- end #main -->
-		
+		</div><!-- end .entry -->
+
 		<div id="sidebar">
+
 			<div class="ads box">
+
 				<ul>
 					<li>
 						<a href="../userDetail/addTravels.do"><img width="125" height="125" src="../img/youji.png" alt="Themeforest"></a>
@@ -222,42 +143,47 @@
 					<li class="even">
 						<a href="../userDetail/addQuestion.do"><img width="125" height="125" src="../img/tiwen.png" alt="Graphicriver"></a>
 					</li>
-				</ul> 
-			</div>
-			<div id="recent-tabs" class="box">
+				</ul>
+				
+			</div><!-- end .ads -->
+			
+			<div class="tags box">
 
 				<div class="box-header">
 
-					<ul class="nav">
-						<li><a class="current" href="#recent-tabs-posts">待回答问题</a></li>
-					</ul>
+					<h6>关注</h6>
 
 				</div><!-- end .box-header -->
 
-				<div class="list-wrap">
 
-					<ul id="recent-tabs-posts">
-						<c:forEach var="userquestion"  items="${userquestionList}">
-						
-						<li>
-							<a href="../index/questionDetail.do?qid=${userquestion.question.qid}" class="title">
-								<img src="../user/${userquestion.user.nickname}/${userquestion.user.faceimg}" width="60" height="60" alt="" />
-								${userquestion.question.qtitle}
-							</a>
-							<p class="meta">
-							提问时间：${userquestion.question.qtime}      提问者：${userquestion.user.nickname}</p>
-						</li>
-						
-						</c:forEach>
+			</div>
+			
+			<div class="tags box">
 
-					</ul> 
+				<div class="box-header">
+
+					<h6>粉丝</h6>
+
+				</div><!-- end .box-header -->
 
 
-					<!-- end #recent-tabs-comments -->
+			</div>
+			
+			<!-- end #recent-tabs -->
 
-				</div><!-- end .list-wrap -->
+			<div class="flickr-feed box">
 
-			</div><!-- end #recent-tabs --><!-- end .flickr-feed --><!-- end .tags -->
+				<div class="box-header">
+
+					<h6 class="align-left"><img src="../img/icon-flickr-feed.png" alt="icon-flickr-feed" class="flickr-icon" /> 最近访客</h6>
+
+
+				</div><!-- end .box-header -->
+
+			</div><!-- end .flickr-feed -->
+
+			<!-- end .tags -->
+
 
 		</div><!-- end #sidebar -->
 
@@ -266,7 +192,6 @@
 	</div><!-- end .container -->
 
 </div><!-- end #content -->
-
 
 <div id="footer">
 
@@ -342,6 +267,7 @@
 <script src="../js/jquery.fancybox-1.3.4.pack.js"></script>
 <script src="../js/css3-mediaqueries.js"></script>
 <script src="../js/custom.js"></script>
+<script src="../js/myjs.js"></script>
 <!--[if IE]> <script src="js/selectivizr.js"></script> <![endif]-->
 <!-- end scripts -->
 </body>

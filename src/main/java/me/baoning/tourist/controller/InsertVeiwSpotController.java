@@ -1,7 +1,7 @@
 package me.baoning.tourist.controller;
 
 
-import com.tarena.service.VeiwService;
+import me.baoning.tourist.service.ViewService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +22,7 @@ public class InsertVeiwSpotController {
 	
 	//注入VeiwService
 	@Resource
-	private VeiwService veiwService;
+    private ViewService veiwService;
 	
 	//添加新景点信息
 	@RequestMapping("/insertNewVeiwSpotOk.do")

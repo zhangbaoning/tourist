@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 	<head>
 		<meta>
-		<title>addTravels</title>
+		<title>questionDetail</title>
 
 		<link rel="stylesheet" href="../css/reset.css" type="text/css"
 			media="screen" />
@@ -27,7 +27,6 @@
 
 		<link rel="stylesheet" href="../css/fancybox.css" type="text/css"
 			media="screen" />
-
 	</head>
 	<body>
 
@@ -41,9 +40,11 @@
 						<a href="../index/login.do">登陆</a>
 					</c:if>
 					<c:if test="${nowuser.nickname!=null}">
-						<a href="#">${nowuser.nickname}</a> |<a href="../index/login.do">切换用户</a>
+						<a href="../index/userDetail.do">${nowuser.nickname}</a> |<a
+							href="../index/login.do">切换用户</a>
 					</c:if>
 				</p>
+
 
 				<p class="right">
 					本网站是个人作品 |
@@ -121,96 +122,141 @@
 
 				<div id="main">
 
-					<!-- end #archives -->
-					<!-- end .search-result -->
-					<h1>
-						发布游记：
-					</h1>
+					<div class="entry single">
+
+						<div class="entry-header">
+
+							<h2 class="title">
+								${nowquestion.qtitle}
+							</h2>
+
+							<p class="meta">
+								发布时间:${nowquestion.qtime}
+							</p>
+
+						</div>
+						<!-- end .entry-header -->
+
+						<div class="entry-content">
+
+							<p>
+								${nowquestion.present}
+							</p>
+
+
+						</div>
+						<!-- end .entry-content -->
+					</div>
+
+					<div id="comments">
+
+						<div class="box-header">
+
+							<div class="align-left">
+								<span class="comments-count"><em></em>
+								</span>
+								<h6>
+									评论
+								</h6>
+								&emsp;
+							</div>
+
+							<div class="align-right">
+								<!--						<strong><a href="#respond">+ADD NEW COMMENT</a></strong>-->
+							</div>
+
+						</div>
+
+						<ol class="comments-list">
+
+							<c:forEach var="userDiscuss" items="${userDiscussLists}">
+
+								<li class="comment first">
+
+									<div class="comment-avatar">
+
+										<img
+											src="../user/${userDiscuss.user.nickname}/${userDiscuss.user.faceimg}"
+											width="60" height="60" alt="Gravatar" class="avatar" />
+
+									</div>
+									<!-- .comment-avatar -->
+
+									<div class="comment-body">
+
+										<div class="comment-meta">
+
+											<a>${userDiscuss.user.nickname}</a>,
+											<span class="date">${userDiscuss.discuss.ptime}</span>
+
+										</div>
+										<!-- .comment-meta -->
+
+										<p>
+											${userDiscuss.discuss.present}
+										</p>
+
+
+									</div>
+									<!-- .comment-body -->
+
+								</li>
+								<!-- .comment -->
+							</c:forEach>
+						</ol>
+
+
+					</div>
+					<!-- #comments -->
+					<div class="list-page">
+						<c:if test="${nowPage eq 1||nowPage eq 0}" var="n1"
+							scope="request"></c:if>
+						<c:if test="${!n1}">
+							<li class="prev">
+								<a
+									href="../questionDetail/changeDiscussPage.do?page=${nowPage-1}">上一页</a>
+							</li>
+						</c:if>
+						第 ${nowPage} 页 /共 ${userDiscussPage} 页
+						<c:if test="${nowPage eq userDiscussPage}" var="n2"
+							scope="request"></c:if>
+						<c:if test="${!n2}">
+							<li>
+								<a class="next"
+									href="../questionDetail/changeDiscussPage.do?page=${nowPage+1}">下一页</a>
+							</li>
+						</c:if>
+					</div>
 
 					<div id="respond" class="box">
 
 						<div class="box-header">
 
 							<h6 class="align-left">
-								请填写完整：
+								我要评论
 							</h6>
-
-							<p class="align-right">
-								<strong>以下内容上传至服务器审核</strong>
-							</p>
 
 						</div>
 
-						<form enctype="multipart/form-data"
-							onsubmit="return valiTravelsNull();"
-							action="../addTravels/addTravels.do" method="post">
+						<form method="post"
+							action="../questionDetail/insertDiscuss.do?type=4&&pid=${nowquestion.qid}&&uid=${nowuser.userid}"
+							id="comment-form" class="form clearfix">
 
-							<p>
-								<label>
-									游记标题
-									<span>(*必填)</span>
-								</label>
-								<input name="title" id="title" onblur="valiTtitle();">
-							</p>
+							<div class="textarea_block">
 
-							<p>
-								<label>
-									内容路径
-									<span>(*必填)</span>
-								</label>
-								<input type="text" name="present" id="present"
-									onblur="valiTpresent();">
-							</p>
+								<p>
+									<label for="comment">
+										评论内容
+									</label>
+									<textarea id="present" name="present" rows="10" cols="60"
+										class="input"></textarea>
+								</p>
 
-							<p>
-								<label>
-									图片路径
-									<span>(*必填)</span>
-								</label>
-								<input type="text" name="travelsphoto" id="travelsphoto"
-									onblur="valiTravelsphoto();">
-							</p>
-							<span style="color: #F00" id="terror"></span>
-							<br>
-							<label color="red">
-								请上传两张符合规定的与新闻相关的图片(png格式)：
-							</label>
-							<br>
-							<br>
-							<label>
-								1. 请先上传一张大图
-							</label>
-							<br>
-							<input type="file" name="file" id="file"
-								onchange="PreviewImage(this,'imgHeadPhoto','divPreview')" />
-							<font color="red"> 图片大小为650＊210</font>
-							<br />
-							<div id="divPreview">
-								<img id="imgHeadPhoto" name="imgHeadPhoto" width="650"
-									height="210" src="">
+								<p>
+									<input type="submit" name="submit" value="提交" class="submit" />
+								</p>
+
 							</div>
-							<br>
-							<label>
-								2. 请再上传一张小图
-							</label>
-							<br>
-							<input type="file" name="file1" id="file1"
-								onchange="PreviewImage(this,'imgHeadPhoto1','divPreview')" />
-							<font color="red"> 图片大小为242＊140</font>
-							<br />
-							<div id="divPreview1">
-								<img id="imgHeadPhoto1" name="imgHeadPhoto1" width="242"
-									height="140" src="">
-							</div>
-							<label>
-								游记内容：(*必填)
-							</label>
-							<p>
-								<textarea id="present1" name="present1" rows="20" cols="85"></textarea>
-							</p>
-							<p>
-								<input type="submit" name="submit" value="上传游记" class="submit" />
-							</p>
 
 						</form>
 
@@ -218,16 +264,15 @@
 					<!-- end #respond -->
 
 				</div>
-				<!-- end .entry -->
+				<!-- end #main -->
 
 				<div id="sidebar">
-
 					<div class="ads box">
-
 						<ul>
 							<li>
 								<a href="../userDetail/addTravels.do"><img width="125"
-										height="125" src="../img/youji.png" alt="Themeforest"> </a>
+										height="125" src="../img/youji.png" alt="Themeforest">
+								</a>
 							</li>
 							<li class="even">
 								<a href="../userDetail/addQuestion.do"><img width="125"
@@ -235,57 +280,48 @@
 								</a>
 							</li>
 						</ul>
-
 					</div>
-					<!-- end .ads -->
-
-					<div class="tags box">
+					<div id="recent-tabs" class="box">
 
 						<div class="box-header">
 
-							<h6>
-								关注
-							</h6>
+							<ul class="nav">
+								<li>
+									<a class="current" href="#recent-tabs-posts">待回答问题</a>
+								</li>
+							</ul>
 
 						</div>
 						<!-- end .box-header -->
 
-					</div>
+						<div class="list-wrap">
 
-					<div class="tags box">
+							<ul id="recent-tabs-posts">
+								<c:forEach var="userquestion" items="${userquestionList}">
 
-						<div class="box-header">
+									<li>
+										<a href="../index/questionDetail.do?qid=${userquestion.question.qid}" class="title"> <img
+												src="../user/${userquestion.user.nickname}/${userquestion.user.faceimg}"
+												width="60" height="60" alt="" />
+											${userquestion.question.qtitle} </a>
+										<p class="meta">
+											提问时间：${userquestion.question.qtime}
+											提问者：${userquestion.user.nickname}
+										</p>
+									</li>
 
-							<h6>
-								粉丝
-							</h6>
+								</c:forEach>
+
+							</ul>
+							<!-- end #recent-tabs-comments -->
 
 						</div>
-						<!-- end .box-header -->
+						<!-- end .list-wrap -->
 
 					</div>
-
 					<!-- end #recent-tabs -->
-
-					<div class="flickr-feed box">
-
-						<div class="box-header">
-
-							<h6 class="align-left">
-								<img src="../img/icon-flickr-feed.png" alt="icon-flickr-feed"
-									class="flickr-icon" />
-								最近访客
-							</h6>
-
-
-						</div>
-						<!-- end .box-header -->
-
-					</div>
 					<!-- end .flickr-feed -->
-
 					<!-- end .tags -->
-
 
 				</div>
 				<!-- end #sidebar -->
@@ -297,6 +333,7 @@
 
 		</div>
 		<!-- end #content -->
+
 
 		<div id="footer">
 
@@ -410,7 +447,6 @@
 		<script src="../js/jquery.fancybox-1.3.4.pack.js"></script>
 		<script src="../js/css3-mediaqueries.js"></script>
 		<script src="../js/custom.js"></script>
-		<script src="../js/myjs.js"></script>
 		<!--[if IE]> <script src="js/selectivizr.js"></script> <![endif]-->
 		<!-- end scripts -->
 	</body>

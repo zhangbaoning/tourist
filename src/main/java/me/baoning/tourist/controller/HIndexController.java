@@ -1,7 +1,8 @@
 package me.baoning.tourist.controller;
 
-import com.tarena.entity.*;
-import com.tarena.service.*;
+
+import me.baoning.tourist.model.*;
+import me.baoning.tourist.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,7 +25,7 @@ public class HIndexController {
 	
 	//注入景点信息业务层
 	@Resource
-	private VeiwService veiwService;
+	private ViewService veiwService;
 	
 	//注入新闻信息业务层
 	@Resource
@@ -87,11 +88,11 @@ public class HIndexController {
 		}else {
 			req.setAttribute("nowPage", 1);
 		}
-		List<VeiwSpot>veiwList=veiwService.findAllVeiwSpot();
+		List<ViewSpot> veiwList = veiwService.findAllViewSpot();
 		req.getSession().setAttribute("veiwList", veiwList);
 		int fromindex=0;
 		int toindex=fromindex+7;
-		List<VeiwSpot>veiwLists;
+		List<ViewSpot> veiwLists;
 		if(toindex>=veiwNum){
 			veiwLists=veiwList.subList(fromindex, veiwNum);
 		}else {

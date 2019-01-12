@@ -1,7 +1,7 @@
 package me.baoning.tourist.controller;
 
 import me.baoning.tourist.model.ViewSpot;
-import me.baoning.tourist.service.VeiwService;
+import me.baoning.tourist.service.ViewService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,7 +21,7 @@ public class DesignViewSpotController {
 	
 	//注入VeiwService
 	@Resource
-	private VeiwService veiwService;
+    private ViewService veiwService;
 	
 	@RequestMapping("/insertNewViewSpot.do")
 	public String insertNewViewSpot(){

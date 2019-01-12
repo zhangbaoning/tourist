@@ -1,6 +1,6 @@
 package me.baoning.tourist.controller;
 
-import com.tarena.entity.UserQuestion;
+import me.baoning.tourist.model.UserQuestion;
 import me.baoning.tourist.service.QuestionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

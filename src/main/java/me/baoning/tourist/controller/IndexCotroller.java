@@ -102,13 +102,13 @@ public class IndexCotroller {
 		for (int a= 0; a < travelsList.size(); a++) {
 			User user = userService.findByUid(travelsList.get(a).getUid());
 			Integer discussNum=discussService.findDiscussByTid(travelsList.get(a).getTid()).size();
-			String presentFlie = req.getSession().getServletContext()
-					.getRealPath("/")
+			String path = "C:\\Users\\lenovo\\Desktop\\tourist\\src\\main\\resources\\static\\"
 					+ "travels/"
 					+ user.getNickname()
 					+ "/"
 					+ travelsList.get(a).getPresent() + ".txt";
-			File presentFile = new File(presentFlie);
+//			String presentFlie =req.getSession().getServletContext().getRealPath("/static/common/docmana/"+path);
+			File presentFile = new File(path);
 			StringBuffer tpresent = new StringBuffer();
 			if (presentFile.exists()) {
 				FileInputStream fis = new FileInputStream(presentFile);

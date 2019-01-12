@@ -19,6 +19,12 @@ public class NewService {
 
 	@Autowired private NewDao newDao;
 
+
+    //统计所有新闻数量
+    public Integer countNewNum() {
+        Integer newNum = newDao.countNewNum();
+        return newNum;
+    }
 	/**
 	 * 查询所有新闻信息
 	 * @return

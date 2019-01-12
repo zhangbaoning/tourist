@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 	<head>
 		<meta>
-		<title>newsDetail</title>
+		<title>allQuestion</title>
 
 		<link rel="stylesheet" href="../css/reset.css" type="text/css"
 			media="screen" />
@@ -44,7 +44,6 @@
 							href="../index/login.do">切换用户</a>
 					</c:if>
 				</p>
-
 
 				<p class="right">
 					本网站是个人作品 |
@@ -121,162 +120,72 @@
 			<div class="container">
 
 				<div id="main">
+					<h1>
+						问题信息：
+					</h1>
+					<c:forEach var="userQuestion" items="${userQuestionLists}">
 
-					<div class="entry single">
+						<div class="entry collapsible">
 
-						<div class="entry-header">
+							<div class="entry-header">
 
-							<h2 class="title">
-								${nownews.ntitle}
-							</h2>
+								<img
+									src="../user/${userQuestion.user.nickname}/${userQuestion.user.faceimg}"
+									width="60" height="60" alt="" class="entry-title-image">
 
-							<p class="meta">
-								发布时间:${nownews.stime} 来自：${nownews.quarry}
-							</p>
+								<h2 class="title">
+									${userQuestion.question.qtitle}
+								</h2>
+
+								<p class="meta">
+									发布时间:${userQuestion.question.qtime}
+									来自：${userQuestion.user.nickname}
+								</p>
+
+								<a
+									href="../index/questionDetail.do?qid=${userQuestion.question.qid}"
+									class="button">阅读该问题..</a>
+
+							</div>
+							<!-- end .entry-header -->
 
 						</div>
-						<!-- end .entry-header -->
+						<!-- end .entry -->
 
-						<div class="entry-content">
+					</c:forEach>
 
-							<div class="zoom">
-								<a class="single_image" href="img/sample-images/800x600.jpg">
-									<img src="${newphoto1}" width="650" height="210"
-										alt="Texas Trip 2010: Abandoned ranch" class="entry-image" />
-								</a>
-							</div>
-
-							<p>
-								${present1}
-							</p>
-
-
-						</div>
-						<!-- end .entry-content -->
-					</div>
-
-					<div id="comments">
-
-						<div class="box-header">
-
-							<div class="align-left">
-								<span class="comments-count"><em></em> </span>
-								<h6>
-									评论
-								</h6>
-								&emsp;
-							</div>
-
-							<div class="align-right">
-								<!--						<strong><a href="#respond">+ADD NEW COMMENT</a></strong>-->
-							</div>
-
-						</div>
-
-						<ol class="comments-list">
-
-							<c:forEach var="userDiscuss" items="${userDiscussLists}">
-
-								<li class="comment first">
-
-									<div class="comment-avatar">
-
-										<img
-											src="../user/${userDiscuss.user.nickname}/${userDiscuss.user.faceimg}"
-											width="60" height="60" alt="Gravatar" class="avatar" />
-
-									</div>
-									<!-- .comment-avatar -->
-
-									<div class="comment-body">
-
-										<div class="comment-meta">
-
-											<a>${userDiscuss.user.nickname}</a>,
-											<span class="date">${userDiscuss.discuss.ptime}</span>
-
-										</div>
-										<!-- .comment-meta -->
-
-										<p>
-											${userDiscuss.discuss.present}
-										</p>
-
-
-									</div>
-									<!-- .comment-body -->
-
-								</li>
-								<!-- .comment -->
-							</c:forEach>
-						</ol>
-
-
-					</div>
-					<!-- #comments -->
-					<div class="list-page">
+					<ul class="pagination">
 						<c:if test="${nowPage eq 1||nowPage eq 0}" var="n1"
 							scope="request"></c:if>
 						<c:if test="${!n1}">
 							<li class="prev">
-								<a href="../newDetail/changeDiscussPage.do?page=${nowPage-1}">上一页</a>
+								<a href="../allQuestion/changeQuestionPage.do?page=${nowPage-1}">上一页</a>
 							</li>
 						</c:if>
-						第 ${nowPage} 页 /共 ${userDiscussPage} 页
-						<c:if test="${nowPage eq userDiscussPage}" var="n2"
-							scope="request"></c:if>
+						<li>
+							第 ${nowPage} 页 /共 ${questionPage} 页
+						</li>
+						<c:if test="${nowPage eq questionPage}" var="n2" scope="request"></c:if>
 						<c:if test="${!n2}">
-							<li>
-								<a class="next"
-									href="../newDetail/changeDiscussPage.do?page=${nowPage+1}">下一页</a>
+							<li class="next">
+								<a
+									href="../allQuestions/changeQuestionPage.do?page=${nowPage+1}">下一页</a>
 							</li>
 						</c:if>
-					</div>
-
-					<div id="respond" class="box">
-
-						<div class="box-header">
-
-							<h6 class="align-left">
-								我要评论
-							</h6>
-
-						</div>
-
-						<form method="post"
-							action="../newDetail/insertDiscuss.do?type=1&&pid=${nownews.nid}&&uid=${nowuser.userid}"
-							id="comment-form" class="form clearfix">
-
-							<div class="textarea_block">
-
-								<p>
-									<label for="comment">
-										评论内容
-									</label>
-									<textarea id="present" name="present" rows="10" cols="60"
-										class="input"></textarea>
-								</p>
-
-								<p>
-									<input type="submit" name="submit" value="提交" class="submit" />
-								</p>
-
-							</div>
-
-						</form>
-
-					</div>
-					<!-- end #respond -->
+					</ul>
 
 				</div>
 				<!-- end #main -->
 
 				<div id="sidebar">
+
 					<div class="ads box">
+
 						<ul>
 							<li>
 								<a href="../userDetail/addTravels.do"><img width="125"
-										height="125" src="../img/youji.png" alt="Themeforest"> </a>
+										height="125" src="../img/youji.png" alt="Themeforest">
+								</a>
 							</li>
 							<li class="even">
 								<a href="../userDetail/addQuestion.do"><img width="125"
@@ -284,7 +193,10 @@
 								</a>
 							</li>
 						</ul>
+
 					</div>
+					<!-- end .ads -->
+
 					<div id="recent-tabs" class="box">
 
 						<div class="box-header">
@@ -304,7 +216,9 @@
 								<c:forEach var="userquestion" items="${userquestionList}">
 
 									<li>
-										<a href="../index/questionDetail.do?qid=${userquestion.question.qid}" class="title"> <img
+										<a
+											href="../index/questionDetail.do?qid=${userquestion.question.qid}"
+											class="title"> <img
 												src="../user/${userquestion.user.nickname}/${userquestion.user.faceimg}"
 												width="60" height="60" alt="" />
 											${userquestion.question.qtitle} </a>
@@ -317,6 +231,8 @@
 								</c:forEach>
 
 							</ul>
+							<!-- end #recent-tabs-posts-->
+
 							<!-- end #recent-tabs-comments -->
 
 						</div>
@@ -338,13 +254,13 @@
 		</div>
 		<!-- end #content -->
 
-
 		<div id="footer">
 
 			<div class="container clearfix">
 
 				<a href="../index/index.do"><img src="../img/footer-logo.png"
-						alt="footer-logo" class="footer-logo" /> </a>
+						alt="footer-logo" class="footer-logo" />
+				</a>
 
 				<div class="one-third">
 

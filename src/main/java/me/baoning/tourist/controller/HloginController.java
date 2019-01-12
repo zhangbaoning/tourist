@@ -1,7 +1,8 @@
 package me.baoning.tourist.controller;
 
-import com.tarena.entity.Operator;
-import com.tarena.service.OperatorService;
+
+import me.baoning.tourist.model.Operator;
+import me.baoning.tourist.service.OperatorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 

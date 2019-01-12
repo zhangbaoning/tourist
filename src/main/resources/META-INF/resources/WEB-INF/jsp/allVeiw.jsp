@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 	<head>
 		<meta>
-		<title>allTravels</title>
+		<title>veiwDetail</title>
 
 		<link rel="stylesheet" href="../css/reset.css" type="text/css"
 			media="screen" />
@@ -112,6 +112,7 @@
 
 		</div>
 		<!-- end #nav -->
+
 		<div id="nav-shadow"></div>
 
 		<div id="content">
@@ -119,85 +120,62 @@
 			<div class="container">
 
 				<div id="main">
+					<h1>
+						景点介绍：
+					</h1>
+					<ul class="gallery-list clearfix">
 
-					<h2>
-						游记信息：
-					</h2>
+						<c:forEach var="veiw" items="${veiwLists}">
 
-					<c:forEach var="travelsMore" items="${travelsMoreLists}">
+							<li class="box">
 
-						<div class="entry">
+								<div class="entry-header">
 
-							<div class="entry-header">
+									<div class="zoom">
+										<a href="../veiwphoto/${veiw.veiwphoto}2.png"
+											class="multi_images" rel="gallery-images"
+											title="${veiw.vname}"> <img
+												src="../veiwphoto/${veiw.veiwphoto}2.png"
+												alt="Abroad Trip: Australian Rocks" class="gallery-image">
+										</a>
+									</div>
 
-								<h2 class="title">
-									<a
-										href="../index/travelsDetail.do?tid=${travelsMore.travels.tid}">${travelsMore.travels.title}</a>
-								</h2>
+									<h6>
+										${veiw.vname}
+									</h6>
 
-								<p class="meta">
-									创建时间：${travelsMore.travels.atime}
-									发布者：${travelsMore.user.nickname}
-								</p>
+									<a href="../index/veiwDetail.do?vid=${veiw.vid}">景点详情...</a>
 
-								<a
-									href="../index/travelsDetail.do?tid=${travelsMore.travels.tid}"
-									class="button">详情...</a>
+								</div>
+								<!-- end .entry-header -->
 
-							</div>
-							<!-- end .entry-header -->
+							</li>
 
-							<div class="entry-content">
+						</c:forEach>
 
-								<a
-									href="../index/travelsDetail.do?tid=${travelsMore.travels.tid}"><img
-										src="../travels/${travelsMore.user.nickname}/${travelsMore.travels.present}2.png"
-										width="240" height="140" alt="" class="entry-image" />
-								</a>
-
-								<p>
-									${travelsMore.present1}
-								</p>
-
-								<hr />
-
-								<ul class="entry-links">
-									<li>
-										${travelsMore.discussNum} 条评论
-										<span class="separator">|</span>
-									</li>
-								</ul>
-
-							</div>
-							<!-- end .entry-content -->
-
-						</div>
-						<!-- end .entry -->
-
-					</c:forEach>
+					</ul>
 
 					<ul class="pagination">
 						<c:if test="${nowPage eq 1||nowPage eq 0}" var="n1"
 							scope="request"></c:if>
 						<c:if test="${!n1}">
 							<li class="prev">
-								<a href="../allTravels/changeTravelsPage.do?page=${nowPage-1}">上一页</a>
+								<a href="../allVeiw/changeVeiwPage.do?page=${nowPage-1}">上一页</a>
 							</li>
 						</c:if>
 						<li>
-							第 ${nowPage} 页 /共 ${travelsPage} 页
+							第 ${nowPage} 页 /共 ${veiwPage} 页
 						</li>
-						<c:if test="${nowPage eq travelsPage}" var="n2" scope="request"></c:if>
+						<c:if test="${nowPage eq veiwPage}" var="n2" scope="request"></c:if>
 						<c:if test="${!n2}">
 							<li class="next">
-								<a href="../allTravels/changeTravelsPage.do?page=${nowPage+1}">下一页</a>
+								<a href="../allVeiw/changeVeiwPage.do?page=${nowPage+1}">下一页</a>
 							</li>
 						</c:if>
 					</ul>
 
 				</div>
 				<!-- end #main -->
-
 
 				<div id="sidebar">
 
@@ -251,6 +229,7 @@
 								</c:forEach>
 
 							</ul>
+
 							<!-- end #recent-tabs-comments -->
 
 						</div>
@@ -264,119 +243,127 @@
 				</div>
 				<!-- end #sidebar -->
 
-				<div id="footer">
+				<div class="clear"></div>
 
-					<div class="container clearfix">
+			</div>
+			<!-- end .container -->
 
-						<a href="../index/index.do"><img src="../img/footer-logo.png"
-								alt="footer-logo" class="footer-logo" />
-						</a>
+		</div>
+		<!-- end #content -->
 
-						<div class="one-third">
+		<div id="footer">
 
-							<h4>
-								关于我们的网站
-							</h4>
+			<div class="container clearfix">
 
-							<p>
-								本网站名为南通旅游攻略网,是分享南通旅游行程的一个平台。本网站是个人作品网站，不涉及任何商业操作。
-							</p>
+				<a href="../index/index.do"><img src="../img/footer-logo.png"
+						alt="footer-logo" class="footer-logo" />
+				</a>
 
-							<strong>作者 qyn</strong>
+				<div class="one-third">
 
-						</div>
-						<!-- end .one-third -->
+					<h4>
+						关于我们的网站
+					</h4>
 
-						<div class="one-fourth">
+					<p>
+						本网站名为南通旅游攻略网,是分享南通旅游行程的一个平台。本网站是个人作品网站，不涉及任何商业操作。
+					</p>
 
-							<h4>
-								导航
-							</h4>
-
-							<ul id="categories">
-								<li>
-									<a href="#">景点介绍</a>
-								</li>
-								<li>
-									<a href="#">新闻通告</a>
-								</li>
-								<li>
-									<a href="#">游记一览</a>
-								</li>
-								<li>
-									<a href="#">问答模块</a>
-								</li>
-							</ul>
-
-						</div>
-						<!-- end .one-fourth -->
-
-						<div class="two-fifth last">
-
-							<h4>
-								<span>其他</span> 事项
-							</h4>
-
-							<ul id="latest-tweets">
-
-								<li>
-									<h4>
-										1.关于网站建设
-									</h4>
-									<p class="tweet">
-										如果合理提议请联系管理员！
-									</p>
-								</li>
-								<li>
-									<h4>
-										2.关于发帖内容
-									</h4>
-									<p class="tweet">
-										请发布符合实际，和谐的内容，管理员会对发帖内容进行审核！
-									</p>
-								</li>
-
-							</ul>
-							<!-- end #latest-tweets -->
-
-						</div>
-						<!-- end .one-misc -->
-
-					</div>
-					<!-- end .container -->
+					<strong>作者 qyn</strong>
 
 				</div>
-				<!-- end #footer -->
+				<!-- end .one-third -->
 
-				<div id="footer-bottom">
+				<div class="one-fourth">
 
-					<div class="container">
+					<h4>
+						导航
+					</h4>
 
-						<p class="align-left">
-							感谢你的使用！
-						</p>
-
-						<ul class="align-right">
-							<p>
-								如果有BUG请联系管理员！
-							</p>
-						</ul>
-
-					</div>
-					<!-- end .container -->
+					<ul id="categories">
+						<li>
+							<a href="#">景点介绍</a>
+						</li>
+						<li>
+							<a href="#">新闻通告</a>
+						</li>
+						<li>
+							<a href="#">游记一览</a>
+						</li>
+						<li>
+							<a href="#">问答模块</a>
+						</li>
+					</ul>
 
 				</div>
-				<!-- end #footer-bottom -->
+				<!-- end .one-fourth -->
 
-				<!-- start scripts -->
-				<script src="../js/jquery.min.js"></script>
-				<script src="../js/jquery.cycle.all.min.js"></script>
-				<script src="../js/jquery.easing.1.3.js"></script>
-				<script src="../js/organictabs.jquery.js"></script>
-				<script src="../js/jquery.fancybox-1.3.4.pack.js"></script>
-				<script src="../js/css3-mediaqueries.js"></script>
-				<script src="../js/custom.js"></script>
-				<!--[if IE]> <script src="js/selectivizr.js"></script> <![endif]-->
-				<!-- end scripts -->
+				<div class="two-fifth last">
+
+					<h4>
+						<span>其他</span> 事项
+					</h4>
+
+					<ul id="latest-tweets">
+
+						<li>
+							<h4>
+								1.关于网站建设
+							</h4>
+							<p class="tweet">
+								如果合理提议请联系管理员！
+							</p>
+						</li>
+						<li>
+							<h4>
+								2.关于发帖内容
+							</h4>
+							<p class="tweet">
+								请发布符合实际，和谐的内容，管理员会对发帖内容进行审核！
+							</p>
+						</li>
+
+					</ul>
+					<!-- end #latest-tweets -->
+
+				</div>
+				<!-- end .one-misc -->
+
+			</div>
+			<!-- end .container -->
+
+		</div>
+		<!-- end #footer -->
+
+		<div id="footer-bottom">
+
+			<div class="container">
+
+				<p class="align-left">
+					感谢你的使用！
+				</p>
+
+				<ul class="align-right">
+					<p>
+						如果有BUG请联系管理员！
+					</p>
+				</ul>
+
+			</div>
+			<!-- end .container -->
+
+		</div>
+		<!-- end #footer-bottom -->
+
+		<!-- start scripts -->
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/jquery.cycle.all.min.js"></script>
+		<script src="../js/jquery.easing.1.3.js"></script>
+		<script src="../js/organictabs.jquery.js"></script>
+		<script src="../js/jquery.fancybox-1.3.4.pack.js"></script>
+		<script src="../js/css3-mediaqueries.js"></script>
+		<script src="../js/custom.js"></script>
+		<!--[if IE]> <script src="js/selectivizr.js"></script> <![endif]-->
+		<!-- end scripts -->
 	</body>
 </html>

@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 	<head>
 		<meta>
-		<title>questionDetail</title>
+		<title>newsDetail</title>
 
 		<link rel="stylesheet" href="../css/reset.css" type="text/css"
 			media="screen" />
@@ -127,11 +127,11 @@
 						<div class="entry-header">
 
 							<h2 class="title">
-								${nowquestion.qtitle}
+								${nownews.ntitle}
 							</h2>
 
 							<p class="meta">
-								发布时间:${nowquestion.qtime}
+								发布时间:${nownews.stime} 来自：${nownews.quarry}
 							</p>
 
 						</div>
@@ -139,8 +139,15 @@
 
 						<div class="entry-content">
 
+							<div class="zoom">
+								<a class="single_image" href="img/sample-images/800x600.jpg">
+									<img src="${newphoto1}" width="650" height="210"
+										alt="Texas Trip 2010: Abandoned ranch" class="entry-image" />
+								</a>
+							</div>
+
 							<p>
-								${nowquestion.present}
+								${present1}
 							</p>
 
 
@@ -153,8 +160,7 @@
 						<div class="box-header">
 
 							<div class="align-left">
-								<span class="comments-count"><em></em>
-								</span>
+								<span class="comments-count"><em></em> </span>
 								<h6>
 									评论
 								</h6>
@@ -213,8 +219,7 @@
 							scope="request"></c:if>
 						<c:if test="${!n1}">
 							<li class="prev">
-								<a
-									href="../questionDetail/changeDiscussPage.do?page=${nowPage-1}">上一页</a>
+								<a href="../newDetail/changeDiscussPage.do?page=${nowPage-1}">上一页</a>
 							</li>
 						</c:if>
 						第 ${nowPage} 页 /共 ${userDiscussPage} 页
@@ -223,7 +228,7 @@
 						<c:if test="${!n2}">
 							<li>
 								<a class="next"
-									href="../questionDetail/changeDiscussPage.do?page=${nowPage+1}">下一页</a>
+									href="../newDetail/changeDiscussPage.do?page=${nowPage+1}">下一页</a>
 							</li>
 						</c:if>
 					</div>
@@ -239,7 +244,7 @@
 						</div>
 
 						<form method="post"
-							action="../questionDetail/insertDiscuss.do?type=4&&pid=${nowquestion.qid}&&uid=${nowuser.userid}"
+							action="../newDetail/insertDiscuss.do?type=1&&pid=${nownews.nid}&&uid=${nowuser.userid}"
 							id="comment-form" class="form clearfix">
 
 							<div class="textarea_block">
@@ -271,8 +276,7 @@
 						<ul>
 							<li>
 								<a href="../userDetail/addTravels.do"><img width="125"
-										height="125" src="../img/youji.png" alt="Themeforest">
-								</a>
+										height="125" src="../img/youji.png" alt="Themeforest"> </a>
 							</li>
 							<li class="even">
 								<a href="../userDetail/addQuestion.do"><img width="125"
@@ -340,8 +344,7 @@
 			<div class="container clearfix">
 
 				<a href="../index/index.do"><img src="../img/footer-logo.png"
-						alt="footer-logo" class="footer-logo" />
-				</a>
+						alt="footer-logo" class="footer-logo" /> </a>
 
 				<div class="one-third">
 

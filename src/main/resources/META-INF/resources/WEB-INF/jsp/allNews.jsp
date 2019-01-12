@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 	<head>
 		<meta>
-		<title>allQuestion</title>
+		<title>allNews</title>
 
 		<link rel="stylesheet" href="../css/reset.css" type="text/css"
 			media="screen" />
@@ -40,8 +40,7 @@
 						<a href="../index/login.do">登陆</a>
 					</c:if>
 					<c:if test="${nowuser.nickname!=null}">
-						<a href="../index/userDetail.do">${nowuser.nickname}</a> |<a
-							href="../index/login.do">切换用户</a>
+						<a href="#">${nowuser.nickname}</a> |<a href="../index/login.do">切换用户</a>
 					</c:if>
 				</p>
 
@@ -121,30 +120,26 @@
 
 				<div id="main">
 					<h1>
-						问题信息：
+						新闻信息：
 					</h1>
-					<c:forEach var="userQuestion" items="${userQuestionLists}">
+					<c:forEach var="news" items="${newLists}">
 
 						<div class="entry collapsible">
 
 							<div class="entry-header">
 
-								<img
-									src="../user/${userQuestion.user.nickname}/${userQuestion.user.faceimg}"
-									width="60" height="60" alt="" class="entry-title-image">
+								<img src="../newphoto/${news.newphoto}3.png" width="60"
+									height="60" alt="" class="entry-title-image">
 
 								<h2 class="title">
-									${userQuestion.question.qtitle}
+									${news.ntitle}
 								</h2>
 
 								<p class="meta">
-									发布时间:${userQuestion.question.qtime}
-									来自：${userQuestion.user.nickname}
+									发布时间:${news.stime} 来自：${news.quarry}
 								</p>
 
-								<a
-									href="../index/questionDetail.do?qid=${userQuestion.question.qid}"
-									class="button">阅读该问题..</a>
+								<a href="../index/newsDetail.do?nid=${news.nid}" class="button">阅读全文...</a>
 
 							</div>
 							<!-- end .entry-header -->
@@ -159,17 +154,16 @@
 							scope="request"></c:if>
 						<c:if test="${!n1}">
 							<li class="prev">
-								<a href="../allQuestion/changeQuestionPage.do?page=${nowPage-1}">上一页</a>
+								<a href="../allNews/changeNewPage.do?page=${nowPage-1}">上一页</a>
 							</li>
 						</c:if>
 						<li>
-							第 ${nowPage} 页 /共 ${questionPage} 页
+							第 ${nowPage} 页 /共 ${newPage} 页
 						</li>
-						<c:if test="${nowPage eq questionPage}" var="n2" scope="request"></c:if>
+						<c:if test="${nowPage eq newPage}" var="n2" scope="request"></c:if>
 						<c:if test="${!n2}">
 							<li class="next">
-								<a
-									href="../allQuestions/changeQuestionPage.do?page=${nowPage+1}">下一页</a>
+								<a href="../allNews/changeNewPage.do?page=${nowPage+1}">下一页</a>
 							</li>
 						</c:if>
 					</ul>
@@ -184,8 +178,7 @@
 						<ul>
 							<li>
 								<a href="../userDetail/addTravels.do"><img width="125"
-										height="125" src="../img/youji.png" alt="Themeforest">
-								</a>
+										height="125" src="../img/youji.png" alt="Themeforest"> </a>
 							</li>
 							<li class="even">
 								<a href="../userDetail/addQuestion.do"><img width="125"
@@ -211,14 +204,11 @@
 						<!-- end .box-header -->
 
 						<div class="list-wrap">
-
 							<ul id="recent-tabs-posts">
 								<c:forEach var="userquestion" items="${userquestionList}">
 
 									<li>
-										<a
-											href="../index/questionDetail.do?qid=${userquestion.question.qid}"
-											class="title"> <img
+										<a href="../index/questionDetail.do?qid=${userquestion.question.qid}" class="title"> <img
 												src="../user/${userquestion.user.nickname}/${userquestion.user.faceimg}"
 												width="60" height="60" alt="" />
 											${userquestion.question.qtitle} </a>
@@ -231,7 +221,6 @@
 								</c:forEach>
 
 							</ul>
-							<!-- end #recent-tabs-posts-->
 
 							<!-- end #recent-tabs-comments -->
 
@@ -259,8 +248,7 @@
 			<div class="container clearfix">
 
 				<a href="../index/index.do"><img src="../img/footer-logo.png"
-						alt="footer-logo" class="footer-logo" />
-				</a>
+						alt="footer-logo" class="footer-logo" /> </a>
 
 				<div class="one-third">
 

@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 	<head>
 		<meta>
-		<title>veiwDetail</title>
+		<title>addTravels</title>
 
 		<link rel="stylesheet" href="../css/reset.css" type="text/css"
 			media="screen" />
@@ -27,6 +27,7 @@
 
 		<link rel="stylesheet" href="../css/fancybox.css" type="text/css"
 			media="screen" />
+
 	</head>
 	<body>
 
@@ -40,8 +41,7 @@
 						<a href="../index/login.do">登陆</a>
 					</c:if>
 					<c:if test="${nowuser.nickname!=null}">
-						<a href="../index/userDetail.do">${nowuser.nickname}</a> |<a
-							href="../index/login.do">切换用户</a>
+						<a href="#">${nowuser.nickname}</a> |<a href="../index/login.do">切换用户</a>
 					</c:if>
 				</p>
 
@@ -120,62 +120,105 @@
 			<div class="container">
 
 				<div id="main">
+
+					<!-- end #archives -->
+					<!-- end .search-result -->
 					<h1>
-						景点介绍：
+						发布游记：
 					</h1>
-					<ul class="gallery-list clearfix">
 
-						<c:forEach var="veiw" items="${veiwLists}">
+					<div id="respond" class="box">
 
-							<li class="box">
+						<div class="box-header">
 
-								<div class="entry-header">
+							<h6 class="align-left">
+								请填写完整：
+							</h6>
 
-									<div class="zoom">
-										<a href="../veiwphoto/${veiw.veiwphoto}2.png"
-											class="multi_images" rel="gallery-images"
-											title="${veiw.vname}"> <img
-												src="../veiwphoto/${veiw.veiwphoto}2.png"
-												alt="Abroad Trip: Australian Rocks" class="gallery-image">
-										</a>
-									</div>
+							<p class="align-right">
+								<strong>以下内容上传至服务器审核</strong>
+							</p>
 
-									<h6>
-										${veiw.vname}
-									</h6>
+						</div>
 
-									<a href="../index/veiwDetail.do?vid=${veiw.vid}">景点详情...</a>
+						<form enctype="multipart/form-data"
+							onsubmit="return valiTravelsNull();"
+							action="../addTravels/addTravels.do" method="post">
 
-								</div>
-								<!-- end .entry-header -->
+							<p>
+								<label>
+									游记标题
+									<span>(*必填)</span>
+								</label>
+								<input name="title" id="title" onblur="valiTtitle();">
+							</p>
 
-							</li>
+							<p>
+								<label>
+									内容路径
+									<span>(*必填)</span>
+								</label>
+								<input type="text" name="present" id="present"
+									onblur="valiTpresent();">
+							</p>
 
-						</c:forEach>
+							<p>
+								<label>
+									图片路径
+									<span>(*必填)</span>
+								</label>
+								<input type="text" name="travelsphoto" id="travelsphoto"
+									onblur="valiTravelsphoto();">
+							</p>
+							<span style="color: #F00" id="terror"></span>
+							<br>
+							<label color="red">
+								请上传两张符合规定的与新闻相关的图片(png格式)：
+							</label>
+							<br>
+							<br>
+							<label>
+								1. 请先上传一张大图
+							</label>
+							<br>
+							<input type="file" name="file" id="file"
+								onchange="PreviewImage(this,'imgHeadPhoto','divPreview')" />
+							<font color="red"> 图片大小为650＊210</font>
+							<br />
+							<div id="divPreview">
+								<img id="imgHeadPhoto" name="imgHeadPhoto" width="650"
+									height="210" src="">
+							</div>
+							<br>
+							<label>
+								2. 请再上传一张小图
+							</label>
+							<br>
+							<input type="file" name="file1" id="file1"
+								onchange="PreviewImage(this,'imgHeadPhoto1','divPreview')" />
+							<font color="red"> 图片大小为242＊140</font>
+							<br />
+							<div id="divPreview1">
+								<img id="imgHeadPhoto1" name="imgHeadPhoto1" width="242"
+									height="140" src="">
+							</div>
+							<label>
+								游记内容：(*必填)
+							</label>
+							<p>
+								<textarea id="present1" name="present1" rows="20" cols="85"></textarea>
+							</p>
+							<p>
+								<input type="submit" name="submit" value="上传游记" class="submit" />
+							</p>
 
-					</ul>
+						</form>
 
-					<ul class="pagination">
-						<c:if test="${nowPage eq 1||nowPage eq 0}" var="n1"
-							scope="request"></c:if>
-						<c:if test="${!n1}">
-							<li class="prev">
-								<a href="../allVeiw/changeVeiwPage.do?page=${nowPage-1}">上一页</a>
-							</li>
-						</c:if>
-						<li>
-							第 ${nowPage} 页 /共 ${veiwPage} 页
-						</li>
-						<c:if test="${nowPage eq veiwPage}" var="n2" scope="request"></c:if>
-						<c:if test="${!n2}">
-							<li class="next">
-								<a href="../allVeiw/changeVeiwPage.do?page=${nowPage+1}">下一页</a>
-							</li>
-						</c:if>
-					</ul>
+					</div>
+					<!-- end #respond -->
 
 				</div>
-				<!-- end #main -->
+				<!-- end .entry -->
 
 				<div id="sidebar">
 
@@ -184,8 +227,7 @@
 						<ul>
 							<li>
 								<a href="../userDetail/addTravels.do"><img width="125"
-										height="125" src="../img/youji.png" alt="Themeforest">
-								</a>
+										height="125" src="../img/youji.png" alt="Themeforest"> </a>
 							</li>
 							<li class="even">
 								<a href="../userDetail/addQuestion.do"><img width="125"
@@ -197,48 +239,53 @@
 					</div>
 					<!-- end .ads -->
 
-					<div id="recent-tabs" class="box">
+					<div class="tags box">
 
 						<div class="box-header">
 
-							<ul class="nav">
-								<li>
-									<a class="current" href="#recent-tabs-posts">待回答问题</a>
-								</li>
-							</ul>
+							<h6>
+								关注
+							</h6>
 
 						</div>
 						<!-- end .box-header -->
 
-						<div class="list-wrap">
+					</div>
 
-							<ul id="recent-tabs-posts">
-								<c:forEach var="userquestion" items="${userquestionList}">
+					<div class="tags box">
 
-									<li>
-										<a href="../index/questionDetail.do?qid=${userquestion.question.qid}" class="title"> <img
-												src="../user/${userquestion.user.nickname}/${userquestion.user.faceimg}"
-												width="60" height="60" alt="" />
-											${userquestion.question.qtitle} </a>
-										<p class="meta">
-											提问时间：${userquestion.question.qtime}
-											提问者：${userquestion.user.nickname}
-										</p>
-									</li>
+						<div class="box-header">
 
-								</c:forEach>
-
-							</ul>
-
-							<!-- end #recent-tabs-comments -->
+							<h6>
+								粉丝
+							</h6>
 
 						</div>
-						<!-- end .list-wrap -->
+						<!-- end .box-header -->
 
 					</div>
+
 					<!-- end #recent-tabs -->
+
+					<div class="flickr-feed box">
+
+						<div class="box-header">
+
+							<h6 class="align-left">
+								<img src="../img/icon-flickr-feed.png" alt="icon-flickr-feed"
+									class="flickr-icon" />
+								最近访客
+							</h6>
+
+
+						</div>
+						<!-- end .box-header -->
+
+					</div>
 					<!-- end .flickr-feed -->
+
 					<!-- end .tags -->
+
 
 				</div>
 				<!-- end #sidebar -->
@@ -363,6 +410,7 @@
 		<script src="../js/jquery.fancybox-1.3.4.pack.js"></script>
 		<script src="../js/css3-mediaqueries.js"></script>
 		<script src="../js/custom.js"></script>
+		<script src="../js/myjs.js"></script>
 		<!--[if IE]> <script src="js/selectivizr.js"></script> <![endif]-->
 		<!-- end scripts -->
 	</body>

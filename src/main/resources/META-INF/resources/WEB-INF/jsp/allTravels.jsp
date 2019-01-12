@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 	<head>
 		<meta>
-		<title>userDetail</title>
+		<title>allTravels</title>
 
 		<link rel="stylesheet" href="../css/reset.css" type="text/css"
 			media="screen" />
@@ -41,7 +41,6 @@
 					</c:if>
 					<c:if test="${nowuser.nickname!=null}">
 						<a href="../index/userDetail.do">${nowuser.nickname}</a> |<a
-							href="../userDetail/loadUser.do">修改资料</a> |<a
 							href="../index/login.do">切换用户</a>
 					</c:if>
 				</p>
@@ -113,7 +112,6 @@
 
 		</div>
 		<!-- end #nav -->
-
 		<div id="nav-shadow"></div>
 
 		<div id="content">
@@ -122,11 +120,9 @@
 
 				<div id="main">
 
-					<!-- end #archives -->
-					<!-- end .search-result -->
-					<h1>
-						我的游记：
-					</h1>
+					<h2>
+						游记信息：
+					</h2>
 
 					<c:forEach var="travelsMore" items="${travelsMoreLists}">
 
@@ -201,6 +197,7 @@
 
 				</div>
 				<!-- end #main -->
+
 
 				<div id="sidebar">
 
