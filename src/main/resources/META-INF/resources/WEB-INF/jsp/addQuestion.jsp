@@ -33,7 +33,7 @@
 
 	<div class="container">
 
-		<p class="left">南通旅游攻略网欢迎你！ | 
+		<p class="left">西安乡村旅游网欢迎你！ |
 			<c:if test="${nowuser.nickname==null}"><a href="../index/login.do">登陆</a></c:if>
 			<c:if test="${nowuser.nickname!=null}"><a href="../index/userDetail.do">${nowuser.nickname}</a> |<a href="../index/login.do">切换用户</a> </c:if>
 		</p>
@@ -203,7 +203,7 @@
 
 			<h4>关于我们的网站</h4>
 
-			<p>本网站名为南通旅游攻略网,是分享南通旅游行程的一个平台。本网站是个人作品网站，不涉及任何商业操作。</p>
+			<p>本网站名为西安乡村旅游网,是分享南通旅游行程的一个平台。本网站是个人作品网站，不涉及任何商业操作。</p>
 
 			<strong>作者 qyn</strong>
 

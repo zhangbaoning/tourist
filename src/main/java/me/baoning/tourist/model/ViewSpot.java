@@ -1,11 +1,16 @@
 package me.baoning.tourist.model;
 
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * 景区信息以及景区图片信息的结合类
  * @author qyn
  *
  */
+@Entity
+@Table(name = "view_spot")
 public class ViewSpot {
 
     /**

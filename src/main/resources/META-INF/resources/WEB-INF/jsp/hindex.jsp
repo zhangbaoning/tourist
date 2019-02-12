@@ -43,7 +43,7 @@
     <!--/sidebar-->
     <div class="main-wrap">
         <div class="crumb-wrap">
-            <div class="crumb-list"><i class="icon-font">&#xe06b;</i><span>欢迎使用『南通旅游攻略网』后台管理程序。</span></div>
+            <div class="crumb-list"><i class="icon-font">&#xe06b;</i><span>欢迎使用『西安乡村旅游网』后台管理程序。</span></div>
         </div>
         <div class="result-wrap">
         </div>
