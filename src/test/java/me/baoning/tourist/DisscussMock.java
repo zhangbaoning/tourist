@@ -19,17 +19,16 @@ public class DisscussMock implements PageProcessor {
     @Override
     // process是定制爬虫逻辑的核心接口，在这里编写抽取逻辑
     public void process(Page page) {
-        // 部分二：定义如何抽取页面信息，并保存下来
-        System.out.println(page.getHtml().get());
-        page.putField("name", page.getHtml().xpath("//div[@class='comment-content']/p/text()").toString());
+        page.addTargetRequests(page.getHtml().links().regex("code=jumpnewstemplate&siteid=[0-9]+&channelid=[0-9]+&newsid=[a-z0-9]+").all());
+        //  page.putField("author", page.getUrl().regex("https://github\\.com/(\\w+)/.*").toString());
+        page.putField("name", page.getHtml().xpath("//div[@class='fulong_news_content']/p/text()").toString());
+        System.out.println(page.getHtml());
         if (page.getResultItems().get("name") == null) {
             //skip this page
             page.setSkip(true);
         }
-        //page.putField("readme", page.getHtml().xpath("//div[@id='readme']/tidyText()"));
+        //page.putField("readme", page.getHtml().xpath("//div[@id='readme']/tidyText()"));    }
 
-        // 部分三：从页面发现后续的url地址来抓取
-        // page.addTargetRequests(page.getHtml().links().regex("(https://github\\.com/[\\w\\-]+/[\\w\\-]+)").all());
     }
 
     @Override
@@ -38,15 +37,13 @@ public class DisscussMock implements PageProcessor {
     }
 
     public static void main(String[] args) {
-
         Spider.create(new DisscussMock())
                 //从"https://github.com/code4craft"开始抓
-                .addUrl("http://www.dianping.com/shop/90325407")
+                .addUrl("http://www.xian-tourism.com/xiangcun/show.action?code=publish_4028807457e519330157ffc1239d002b&siteid=100002")
                 //开启5个线程抓取
                 .addPipeline(new ConsolePipeline())
                 .thread(5)
                 //启动爬虫
                 .run();
-
     }
 }
