@@ -68,6 +68,11 @@ public class IndexCotroller {
 
         // 根据时间读取最近一天的4条新闻，如今天不满四条，则从上一天取
         List<News> newLists = newService.findByStimeFour();
+        for (int i = 0; i < newLists.size(); i++) {
+            News news = newLists.get(i);
+            String summary = news.getSummary();
+            news.setSummary(summary.substring(0, 10) + "……");
+        }
         req.setAttribute("newLists", newLists);
 
         // 挑选10条未解决的问题在待回答问题中显示
