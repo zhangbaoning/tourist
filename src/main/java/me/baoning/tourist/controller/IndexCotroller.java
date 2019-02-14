@@ -3,19 +3,23 @@ package me.baoning.tourist.controller;
 
 import me.baoning.tourist.model.*;
 import me.baoning.tourist.service.*;
+import me.baoning.tourist.utils.MyFileUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /**
- * 前端首页控制层
- *
- * @author qyn
+ * @author: zhangbaoning
+ * @date: 2019/2/14
+ * @since: JDK 1.8
+ * @description: 前端首页控制层
  */
 
 @Controller
@@ -56,7 +60,7 @@ public class IndexCotroller {
         // 随机选取的四个景点
         List<ViewSpot> randomViewList = new ArrayList<ViewSpot>(4);
         // 生成四个不同的随机数，可以通过set保证不重复
-        Set<Integer> treeSet = new TreeSet();
+        Set<Integer> treeSet = new TreeSet<>();
         do {
             treeSet.add(new Random().nextInt(viewSpotList.size()));
         } while (treeSet.size() < 4);
@@ -109,22 +113,15 @@ public class IndexCotroller {
         for (int a = 0; a < travelsList.size(); a++) {
             User user = userService.findByUid(travelsList.get(a).getUid());
             Integer discussNum = discussService.findDiscussByTid(travelsList.get(a).getTid()).size();
-            String path = "C:\\Users\\lenovo\\Desktop\\tourist\\src\\main\\resources\\static\\"
+            String path = new File(MyFileUtils.getClassPath(), "static\\"
                     + "travels/"
                     + user.getNickname()
                     + "/"
-                    + travelsList.get(a).getPresent() + ".txt";
-//			String presentFlie =req.getSession().getServletContext().getRealPath("/static/common/docmana/"+path);
+                    + travelsList.get(a).getPresent() + ".txt").getPath();
             File presentFile = new File(path);
             StringBuffer tpresent = new StringBuffer();
             if (presentFile.exists()) {
-                FileInputStream fis = new FileInputStream(presentFile);
-                InputStreamReader isr = new InputStreamReader(fis, "utf-8");
-                BufferedReader br = new BufferedReader(isr);
-                String read = "";
-                while ((read = br.readLine()) != null) {
-                    tpresent.append("\n" + read);
-                }
+                tpresent.append(FileUtils.readFileToString(presentFile));
             }
             String present1 = tpresent.substring(0, 100) + ".........";
             travelsMoreList.add(new TravelsMore(user, travelsList.get(a),
@@ -172,17 +169,11 @@ public class IndexCotroller {
                 "../veiwphoto/" + veiwSpot.getVeiwphoto() + "2.png");
         String presentFlie =
                 "static/veiwspot/" + veiwSpot.getPresent() + ".txt";
-        File path = new File(ResourceUtils.getURL("classpath:").getPath());
-        File presentFile = new File(path.getAbsolutePath(), presentFlie);
+        File presentFile = new File(MyFileUtils.getClassPath(), presentFlie);
         StringBuffer present1 = new StringBuffer();
         if (presentFile.exists()) {
-            FileInputStream fis = new FileInputStream(presentFile);
-            InputStreamReader isr = new InputStreamReader(fis, "utf-8");
-            BufferedReader br = new BufferedReader(isr);
-            String read = "";
-            while ((read = br.readLine()) != null) {
-                present1.append("\n" + read);
-            }
+            present1.append(FileUtils.readFileToString(presentFile));
+
         }
         req.getSession().setAttribute("present1", present1);
         // 加载评论
@@ -219,8 +210,14 @@ public class IndexCotroller {
         return "veiwDetail";
     }
 
+    /**
+     * 前台跳转新闻详情页面
+     *
+     * @param req
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/newsDetail.do")
-    // 前台跳转新闻详情页面
     public String newsDetail(HttpServletRequest req) throws IOException {
         req.setCharacterEncoding("utf-8");
         Integer nid = Integer.parseInt(req.getParameter("nid"));
@@ -234,13 +231,7 @@ public class IndexCotroller {
         File presentFile = new File(presentFlie);
         StringBuffer present1 = new StringBuffer();
         if (presentFile.exists()) {
-            FileInputStream fis = new FileInputStream(presentFile);
-            InputStreamReader isr = new InputStreamReader(fis, "utf-8");
-            BufferedReader br = new BufferedReader(isr);
-            String read = "";
-            while ((read = br.readLine()) != null) {
-                present1.append("\n" + read);
-            }
+            present1.append(FileUtils.readFileToString(presentFile));
         }
         req.getSession().setAttribute("present1", present1);
         // 加载评论
@@ -277,7 +268,12 @@ public class IndexCotroller {
         return "newsDetail";
     }
 
-    // 前台跳转所有新闻页面
+    /**
+     * 前台跳转所有新闻页面
+     *
+     * @param req
+     * @return
+     */
     @RequestMapping("/allNews.do")
     public String allNews(HttpServletRequest req) {
         Integer newNum = newService.countNewNum();
@@ -306,7 +302,12 @@ public class IndexCotroller {
         return "allNews";
     }
 
-    // 前台跳转所有景点信息页面
+    /**
+     * 前台跳转所有景点信息页面
+     *
+     * @param req
+     * @return
+     */
     @RequestMapping("/allVeiw.do")
     public String allVeiw(HttpServletRequest req) {
         Integer veiwNum = veiwService.countViewNum();
@@ -335,7 +336,13 @@ public class IndexCotroller {
         return "allVeiw";
     }
 
-    // 跳转用户具体界面
+    /**
+     * 跳转用户具体界面
+     *
+     * @param req
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/userDetail.do")
     public String userDetail(HttpServletRequest req) throws IOException {
         User user = (User) req.getSession().getAttribute("nowuser");
@@ -365,13 +372,7 @@ public class IndexCotroller {
             File presentFile = new File(presentFlie);
             StringBuffer tpresent = new StringBuffer();
             if (presentFile.exists()) {
-                FileInputStream fis = new FileInputStream(presentFile);
-                InputStreamReader isr = new InputStreamReader(fis, "utf-8");
-                BufferedReader br = new BufferedReader(isr);
-                String read = "";
-                while ((read = br.readLine()) != null) {
-                    tpresent.append("\n" + read);
-                }
+                tpresent.append(FileUtils.readFileToString(presentFile));
             }
             String present1 = tpresent.substring(0, 100) + ".........";
             travelsMoreList.add(new TravelsMore(user, travelsList.get(a),
@@ -389,7 +390,13 @@ public class IndexCotroller {
         return "userDetail";
     }
 
-    // 前台跳转所有游记界面
+    /**
+     * 前台跳转所有游记界面
+     *
+     * @param req
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/allTravels.do")
     public String allTravels(HttpServletRequest req) throws IOException {
         List<Travels> travelsList = travelsService.findAlltravels();
@@ -409,26 +416,21 @@ public class IndexCotroller {
         for (int i = 0; i < travelsList.size(); i++) {
             User user = userService.findByUid(travelsList.get(i).getUid());
             Integer discussNum = discussService.findDiscussByTid(travelsList.get(i).getTid()).size();
-            String presentFlie = req.getSession().getServletContext()
-                    .getRealPath("/")
+            File presentFile = new File(MyFileUtils.getClassPath(), "static/"
                     + "travels/"
                     + user.getNickname()
                     + "/"
-                    + travelsList.get(i).getPresent() + ".txt";
-            File presentFile = new File(presentFlie);
+                    + travelsList.get(i).getPresent() + ".txt");
             StringBuffer tpresent = new StringBuffer();
             if (presentFile.exists()) {
-                FileInputStream fis = new FileInputStream(presentFile);
-                InputStreamReader isr = new InputStreamReader(fis, "utf-8");
-                BufferedReader br = new BufferedReader(isr);
-                String read = "";
-                while ((read = br.readLine()) != null) {
-                    tpresent.append("\n" + read);
-                }
+                tpresent.append(FileUtils.readFileToString(presentFile));
             }
-            String present1 = tpresent.substring(0, 100) + ".........";
-            travelsMoreList.add(new TravelsMore(user, travelsList.get(i),
-                    present1, discussNum));
+            if (StringUtils.isNoneBlank(tpresent)) {
+                String present1 = tpresent.substring(0, 100) + ".........";
+                travelsMoreList.add(new TravelsMore(user, travelsList.get(i),
+                        present1, discussNum));
+            }
+
         }
         req.getSession().setAttribute("travelsMoreList", travelsMoreList);
         int fromindex = 0;
@@ -443,8 +445,14 @@ public class IndexCotroller {
         return "allTravels";
     }
 
+    /**
+     * 前台跳转新闻详情页面
+     *
+     * @param req
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/questionDetail.do")
-    // 前台跳转新闻详情页面
     public String questionDetail(HttpServletRequest req) throws IOException {
         req.setCharacterEncoding("utf-8");
         Integer qid = Integer.parseInt(req.getParameter("qid"));
@@ -486,7 +494,12 @@ public class IndexCotroller {
         return "questionDetail";
     }
 
-    // 前台跳转所有新闻页面
+    /**
+     * 前台跳转所有新闻页面
+     *
+     * @param req
+     * @return
+     */
     @RequestMapping("/allQuestion.do")
     public String allQuestion(HttpServletRequest req) {
         Integer questionNum = questionService.countQuestionNum();
@@ -522,8 +535,14 @@ public class IndexCotroller {
         return "allQuestion";
     }
 
+    /**
+     * 前台跳转景点信息页面
+     *
+     * @param req
+     * @return
+     * @throws IOException
+     */
     @RequestMapping("/travelsDetail.do")
-    // 前台跳转景点信息页面
     public String travelsDetail(HttpServletRequest req) throws IOException {
         req.setCharacterEncoding("utf-8");
         Integer tid = Integer.parseInt(req.getParameter("tid"));
@@ -544,13 +563,7 @@ public class IndexCotroller {
         File presentFile = new File(presentFlie);
         StringBuffer present1 = new StringBuffer();
         if (presentFile.exists()) {
-            FileInputStream fis = new FileInputStream(presentFile);
-            InputStreamReader isr = new InputStreamReader(fis, "utf-8");
-            BufferedReader br = new BufferedReader(isr);
-            String read = "";
-            while ((read = br.readLine()) != null) {
-                present1.append("\n" + read);
-            }
+            present1.append(FileUtils.readFileToString(presentFile));
         }
         req.getSession().setAttribute("present1", present1);
         // 加载评论
