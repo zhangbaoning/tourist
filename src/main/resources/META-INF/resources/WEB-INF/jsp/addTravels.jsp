@@ -40,8 +40,18 @@
     <link rel="stylesheet" href="http://universal-ie6-css.googlecode.com/files/ie6.1.1.css" media="screen, projection">
     <![endif]-->
 
-    <link rel="stylesheet" href="../css/fancybox.css" type="text/css"
-          media="screen"/>
+    <link rel="stylesheet" href="../css/fancybox.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../js/element/index.css" type="text/css"/>
+    <script src="../js/vue.js"></script>
+    <script src="../js/element/index.js"></script>
+    <style>
+        .el-input {
+            width: 50% !important;
+        }
+        .el-form-item {
+            margin: 5%;
+        }
+    </style>
     <script type="text/javascript">
 
         //实例化编辑器
@@ -170,7 +180,7 @@
     </script>
 </head>
 <body>
-
+<div id="app">
 <div id="header-top">
 
     <div class="container">
@@ -259,7 +269,7 @@
 
     <div class="container">
 
-        <div id="main">
+        <div id="main" style="width: 100%">
 
             <!-- end #archives -->
             <!-- end .search-result -->
@@ -281,38 +291,24 @@
 
                 </div>
 
-                <form enctype="multipart/form-data"
+                <el-form  enctype="multipart/form-data"
                       onsubmit="return valiTravelsNull();"
                       action="../addTravels/addTravels.do" method="post">
+                        <el-form-item  label="游记标题">
+                        <el-input name="title" id="title" v-model="title" onblur="valiTtitle();" ></el-input>
+                    </el-form-item>
+                        <el-form-item  label="内容路径">
+                        <el-input type="text" name="present" v-model="present" id="present"
+                                  onblur="valiTpresent();" ></el-input>
+                    </el-form-item>
+                        <el-form-item  label="图片路径">
+                            <el-input type="text" name="travelsphoto" v-model="travelsphoto" id="travelsphoto"
+                                      onblur="valiTravelsphoto();" ></el-input>
+                        </el-form-item>
 
-                    <p>
-                        <label>
-                            游记标题
-                            <span>(*必填)</span>
-                        </label>
-                        <input name="title" id="title" onblur="valiTtitle();">
-                    </p>
-
-                    <p>
-                        <label>
-                            内容路径
-                            <span>(*必填)</span>
-                        </label>
-                        <input type="text" name="present" id="present"
-                               onblur="valiTpresent();">
-                    </p>
-
-                    <p>
-                        <label>
-                            图片路径
-                            <span>(*必填)</span>
-                        </label>
-                        <input type="text" name="travelsphoto" id="travelsphoto"
-                               onblur="valiTravelsphoto();">
-                    </p>
                     <span style="color: #F00" id="terror"></span>
                     <br>
-                    <label color="red">
+                    <%--<label color="red">
                         请上传两张符合规定的与新闻相关的图片(png格式)：
                     </label>
                     <br>
@@ -341,21 +337,21 @@
                     <div id="divPreview1">
                         <img id="imgHeadPhoto1" name="imgHeadPhoto1" width="242"
                              height="140" src="">
-                    </div>
+                    </div>--%>
                     <label>
                         游记内容：(*必填)
                     </label>
                     <p>
                         <%--<textarea id="present1" name="present1" rows="20" cols="85"></textarea>--%>
                     <div>
-                        <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
-                    </div>
+                        <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script></div>
                     </p>
                     <p>
-                        <input type="submit" name="submit" value="上传游记" class="submit"/>
+                        <input type="submit" name="submit" value="上传游记" class="submit">
+                        <el-button>默认按钮</el-button>
                     </p>
 
-                </form>
+                </el-form >
 
             </div>
             <!-- end #respond -->
@@ -363,7 +359,7 @@
         </div>
         <!-- end .entry -->
 
-        <div id="sidebar">
+        <%--<div id="sidebar">
 
             <div class="ads box">
 
@@ -432,7 +428,7 @@
             <!-- end .tags -->
 
 
-        </div>
+        </div>--%>
         <!-- end #sidebar -->
 
         <div class="clear"></div>
@@ -545,13 +541,17 @@
     <!-- end .container -->
 
 </div>
-
-<!-- end #footer-bottom -->
-
-<!-- start scripts -->
-
-
-<!-- end scripts -->
-
+</div>
 </body>
-</html>
+<script>
+    new Vue({
+    el: '#app',
+    data: function() {
+    return { visible: false
+    ,title:''
+    ,present:'',
+    ,travelsphoto:''
+    }
+    }
+    })
+</script></html>
