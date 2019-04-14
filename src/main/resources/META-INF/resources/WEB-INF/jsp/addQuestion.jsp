@@ -25,6 +25,8 @@
 	<![endif]-->
 
 	<link rel="stylesheet" href="../css/fancybox.css" type="text/css" media="screen" />
+	<link href="../css/vendor/bootstrap.min.css" rel="stylesheet">
+	<link href="../css/flat-ui.css" rel="stylesheet">
 
 </head>
 <body>
@@ -44,77 +46,34 @@
 
 </div><!-- end #header-top -->
 
-<div id="header">
+	<nav class="navbar navbar-default navbar-expand-lg" role="navigation">
 
-	<div class="container">
-
-		<h1 id="logo">
-			<a href="../index/index.do">
-				<img src="../img/logo.png" alt="Travel Guide">
-			</a>
-		</h1>
-
-		<div id="header-ads">
-
-
-		</div><!-- end #header-ads -->
-
-	</div><!-- end .container -->
-
-</div><!-- end #header -->
-
-<div id="nav">
-
-	<div class="container">
-
-		<ul>
+		<ul class="nav navbar-nav mr-auto">
 			<li><a href="../index/index.do">主页</a></li>
 			<li><a href="../index/allVeiw.do">景点介绍</a></li>
 			<li><a href="../index/allNews.do">新闻通告</a></li>
 			<li><a href="../index/allTravels.do ">游记一览</a></li>
-			<li><a href="../index/allQuestion.do">问答模块</a></li>
+			<li class="active"><a href="../index/allQuestion.do">问答模块</a></li>
 		</ul>
+	</nav>
 
-		<div id="search">
-<!-- 			<form> -->
-<!-- 				<input type="text"  value="" > -->
-<!-- 				<input type="submit" class="submit" value="搜索"> -->
-<!-- 			</form> -->
-		</div><!-- end #search -->
-
-	</div><!-- end .container -->
-
-</div><!-- end #nav -->
-
-<div id="nav-shadow"></div>
 
 <div id="content">
 
 	<div class="container">
 
-		<div id="main">
+		<div id="main" style="width: 100%">
 
 			<!-- end #archives -->
 			<!-- end .search-result -->
-			<h1>我要提问 ：</h1>	
+			<h1 style="font-size: 28px">我要提问 ：</h1>
 			
-			<div id="respond" class="box">
-			
-				<div class="box-header">
-				
-					<h6 class="align-left">请填写完整：</h6>
-
-					<p class="align-right">
-						<strong>以下内容上传至服务器审核</strong>
-					</p>
-					
-				</div>
-				
+			<div id="respond" class="box" style="padding: 10px;">
 				<form enctype="multipart/form-data" onsubmit="return valiQuestionNull();" action="../addQuestion/addQuestion.do"  method="post">
 
 						<p>
 							<label>问题标题<span>(*必填)</span></label>
-							<input  name="qtitle"  id="qtitle"  onblur="valiQtitle();">
+							<input  class="form-control" name="qtitle"  id="qtitle"  onblur="valiQtitle();">
 						</p>
 	
 						
@@ -123,68 +82,14 @@
 							<textarea id="qpresent" name="qpresent" rows="10" cols="85" onblur="valiQpresent();"></textarea>
 						</p>
 						<p>
-							<input type="submit" name="submit" value="发布问题" class="submit" />
+							<input type="submit" name="submit" value="发布问题" class="btn btn-primary" />
 						</p>
 						<span style="color:#F00"  id="qerror"></span><br>
 				</form>
 				
 			</div><!-- end #respond -->
 
-		</div><!-- end .entry -->
-
-		<div id="sidebar">
-
-			<div class="ads box">
-
-				<ul>
-					<li>
-						<a href="../userDetail/addTravels.do"><img width="125" height="125" src="../img/youji.png" alt="Themeforest"></a>
-					</li>
-					<li class="even">
-						<a href="../userDetail/addQuestion.do"><img width="125" height="125" src="../img/tiwen.png" alt="Graphicriver"></a>
-					</li>
-				</ul>
-				
-			</div><!-- end .ads -->
-			
-			<div class="tags box">
-
-				<div class="box-header">
-
-					<h6>关注</h6>
-
-				</div><!-- end .box-header -->
-
-
-			</div>
-			
-			<div class="tags box">
-
-				<div class="box-header">
-
-					<h6>粉丝</h6>
-
-				</div><!-- end .box-header -->
-
-
-			</div>
-			
-			<!-- end #recent-tabs -->
-
-			<div class="flickr-feed box">
-
-				<div class="box-header">
-
-					<h6 class="align-left"><img src="../img/icon-flickr-feed.png" alt="icon-flickr-feed" class="flickr-icon" /> 最近访客</h6>
-
-
-				</div><!-- end .box-header -->
-
-			</div><!-- end .flickr-feed -->
-
-			<!-- end .tags -->
-
-
+		</div>
 		</div><!-- end #sidebar -->
 
 		<div class="clear"></div>
