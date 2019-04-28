@@ -7,6 +7,7 @@ import me.baoning.tourist.utils.MyFileUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
@@ -222,12 +223,12 @@ public class IndexCotroller {
         req.setCharacterEncoding("utf-8");
         Integer nid = Integer.parseInt(req.getParameter("nid"));
         News news = newService.findByNid(nid);
+        File classpathFile = new File(ResourceUtils.getURL("classpath:").getFile());
         req.getSession().setAttribute("nownews", news);
         req.getSession().setAttribute("newphoto1",
                 "../newphoto/" + news.getNewphoto() + "1.png");
-        String presentFlie = req.getSession().getServletContext().getRealPath(
-                "/")
-                + "news/" + news.getPresent() + ".txt";
+        String presentFlie = classpathFile
+                + "/static/news/" + news.getPresent() + ".txt";
         File presentFile = new File(presentFlie);
         StringBuffer present1 = new StringBuffer();
         if (presentFile.exists()) {

@@ -30,50 +30,8 @@
 	</head>
 	<body>
 
-		<div id="header-top">
-
-			<div class="container">
-
-				<p class="left">
-                    西安乡村旅游网欢迎你！ |
-					<c:if test="${nowuser.nickname==null}">
-						<a href="../index/login.do">登陆</a>
-					</c:if>
-					<c:if test="${nowuser.nickname!=null}">
-						<a href="../index/userDetail.do">${nowuser.nickname}</a> |<a
-							href="../index/login.do">切换用户</a>
-					</c:if>
-				</p>
-
-
-				<p class="right">
-					本网站是个人作品 |
-					<strong> 无任何商业用途 </strong>
-				</p>
-
-			</div>
-			<!-- end .container -->
-
-		</div>
-		<!-- end #header-top -->
-
-		<div id="header">
-
-			<div class="container">
-
-				<h1 id="logo">
-					<a href="../index/index.do"> <img src="../img/logo.png"
-							alt="Travel Guide"> </a>
-				</h1>
-
-				<div id="header-ads">
-
-
-				</div>
-				<!-- end #header-ads -->
-
-			</div>
-			<!-- end .container -->
+		<div>
+			<%@include file="nav.jsp"%>
 
 		</div>
 		<!-- end #header -->

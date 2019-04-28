@@ -55,7 +55,7 @@
 
 
                             <li class="am-g am-list-item-dated">
-                                <a href="../index/questionDetail.do?qid=${userquestion.question.qid}"
+                                <a href="../index/questionDetail.do?qid=${userQuestion.question.qid}"
                                    class="am-list-item-hd ">${userQuestion.question.qtitle}</a>
 
                                 <span class="am-list-date">发布时间:${userQuestion.question.qtime}
