@@ -5,30 +5,11 @@
     <meta>
     <title>allTravels</title>
 
-    <link rel="stylesheet" href="../css/reset.css" type="text/css"
-          media="screen"/>
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/fancybox.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/amazeui.min.css" type="text/css"/>
 
-    <!--[if ! lte IE 6]><!-->
-    <link rel="stylesheet" href="../css/style.css" type="text/css"
-          media="screen"/>
-    <!--<![endif]-->
-
-    <!--[if gt IE 6]>
-    <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen"/>
-    <![endif]-->
-
-    <!--[if IE 7]>
-    <link rel="stylesheet" href="css/ie7.css" type="text/css" media="screen"/>
-    <![endif]-->
-
-    <!--[if lte IE 6]>
-    <link rel="stylesheet" href="http://universal-ie6-css.googlecode.com/files/ie6.1.1.css" media="screen, projection">
-    <![endif]-->
-
-    <link rel="stylesheet" href="../css/fancybox.css" type="text/css"
-          media="screen"/>
-    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css" type="text/css"
-          media="screen"/>
 </head>
 <body>
 
@@ -68,7 +49,7 @@
                     </div>
                     <div class="am-intro-more-bottom">
                         <a class="am-btn am-btn-default "
-                           href="../index/travelsDetail.do?tid=${travelsMore.travels.tid}">更多细节</a>
+                           href="../travelsDetail/travelsDetail.do?tid=${travelsMore.travels.tid}">更多细节</a>
                     </div>
                 </div>
                 </c:forEach>

@@ -1,9 +1,10 @@
 package me.baoning.tourist.controller;
 
-import me.baoning.tourist.model.Discuss;
-import me.baoning.tourist.model.UserDiscuss;
+import me.baoning.tourist.model.*;
+import me.baoning.tourist.service.ArticleService;
 import me.baoning.tourist.service.DiscussService;
 import me.baoning.tourist.service.TravelsService;
+import me.baoning.tourist.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,15 +24,73 @@ import java.util.List;
 @Controller
 @RequestMapping("/travelsDetail")
 public class TravelsDetailController {
-	//注入DiscussService
 	@Resource
 	private DiscussService discussService;
-	
-	//注入TravelsService
 	@Resource
 	private TravelsService travelsService;
-	
-	//添加评论信息
+	@Resource
+	private UserService userService;
+	@Resource
+    private ArticleService articleService;
+	/**
+	 * 前台跳转景点信息页面
+	 *
+	 * @param req
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping("/travelsDetail.do")
+	public String travelsDetail(HttpServletRequest req) throws IOException {
+		req.setCharacterEncoding("utf-8");
+		Integer tid = Integer.parseInt(req.getParameter("tid"));
+		Travels travels = travelsService.findByTid(tid);
+		req.getSession().setAttribute("nowtravels", travels);
+		User user = userService.findByUid(travels.getUid());
+        Article article = articleService.getTravelsById(travels.getTid());
+        req.getSession().setAttribute("content", article.getContent());
+        req.getSession().setAttribute("title", article.getTitle());
+        req.getSession().setAttribute("addTime", article.getAddTime());
+
+		// 加载评论
+		List<UserDiscuss> userDiscussList = new ArrayList<UserDiscuss>();
+		List<Discuss> discussList = discussService.findDiscussByTid(tid);
+		for (int i = 0; i < discussList.size(); i++) {
+			userDiscussList
+					.add(new UserDiscuss(userService.findByUid(discussList.get(
+							i).getUid()), discussList.get(i)));
+		}
+		req.getSession().setAttribute("userDiscussList", userDiscussList);
+		Integer userDiscussNum = userDiscussList.size();
+		req.setAttribute("userDiscussNum", userDiscussNum);
+		if (userDiscussNum % 2 == 0) {
+			req.setAttribute("userDiscussPage", userDiscussNum / 2);
+		} else {
+			req.setAttribute("userDiscussPage", userDiscussNum / 2 + 1);
+		}
+		if (userDiscussNum == 0) {
+			req.setAttribute("nowPage", 0);
+		} else {
+			req.setAttribute("nowPage", 1);
+		}
+		int fromindex = 0;
+		int toindex = fromindex + 2;
+		List<UserDiscuss> userDiscussLists;
+		if (toindex >= userDiscussNum) {
+			userDiscussLists = userDiscussList.subList(fromindex,
+					userDiscussNum);
+		} else {
+			userDiscussLists = userDiscussList.subList(fromindex, toindex);
+		}
+		req.setAttribute("userDiscussLists", userDiscussLists);
+		return "travelsDetail";
+	}
+
+	/**
+	 * 添加评论信息
+	 * @param req
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping("/insertDiscuss.do")
 	public String insertQuestionDiscuss(HttpServletRequest req) throws IOException{
 			Integer type=Integer.parseInt(req.getParameter("type"));

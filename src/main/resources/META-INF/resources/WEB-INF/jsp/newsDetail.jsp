@@ -5,30 +5,11 @@
     <meta>
     <title>newsDetail</title>
 
-    <link rel="stylesheet" href="../css/reset.css" type="text/css"
-          media="screen"/>
+    <link rel="stylesheet" href="../css/reset.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/fancybox.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/amazeui.min.css" type="text/css"/>
 
-    <!--[if ! lte IE 6]><!-->
-    <link rel="stylesheet" href="../css/style.css" type="text/css"
-          media="screen"/>
-    <!--<![endif]-->
-
-    <!--[if gt IE 6]>
-    <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen"/>
-    <![endif]-->
-
-    <!--[if IE 7]>
-    <link rel="stylesheet" href="css/ie7.css" type="text/css" media="screen"/>
-    <![endif]-->
-
-    <!--[if lte IE 6]>
-    <link rel="stylesheet" href="http://universal-ie6-css.googlecode.com/files/ie6.1.1.css" media="screen, projection">
-    <![endif]-->
-
-    <link rel="stylesheet" href="../css/fancybox.css" type="text/css"
-          media="screen"/>
-    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css" type="text/css"
-          media="screen"/>
 </head>
 <body>
 
@@ -51,21 +32,20 @@
                 <div class="entry-content">
                     <article class="am-article">
                         <div class="am-article-hd">
-                            <h1 class="am-article-title"></h1>
-                            <p class="am-article-meta">发布时间:${nownews.stime} 来自：${nownews.quarry}</p>
+                            <h1 class="am-article-title">${title}</h1>
+                            <p class="am-article-meta">发布时间:${addTime} <%--来自：${nownews.quarry}--%></p>
                         </div>
-                        <div class="zoom">
+                        <%--<div class="zoom">
                             <a class="single_image" href="img/sample-images/800x600.jpg">
                                 <img src="${newphoto1}" width="650" height="210"
                                      alt="Texas Trip 2010: Abandoned ranch" class="entry-image"/>
                             </a>
-                        </div>
+                        </div>--%>
                         <div class="am-article-bd">
-                            <p class="am-article-lead">${present1}</p>
+                            <p class="am-article-lead">${content}</p>
                         </div>
                     </article>
                 </div>
-                <!-- end .entry-content -->
             </div>
 
             <div id="comments">

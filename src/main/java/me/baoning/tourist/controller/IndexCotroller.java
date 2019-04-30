@@ -7,7 +7,6 @@ import me.baoning.tourist.utils.MyFileUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
@@ -44,7 +43,8 @@ public class IndexCotroller {
 
     @Resource
     private DiscussService discussService;
-
+    @Resource
+    private ArticleService articleService;
 
     /**
      * 跳转首页,随机读取4个景点信息并显示
@@ -223,18 +223,11 @@ public class IndexCotroller {
         req.setCharacterEncoding("utf-8");
         Integer nid = Integer.parseInt(req.getParameter("nid"));
         News news = newService.findByNid(nid);
-        File classpathFile = new File(ResourceUtils.getURL("classpath:").getFile());
-        req.getSession().setAttribute("nownews", news);
-        req.getSession().setAttribute("newphoto1",
-                "../newphoto/" + news.getNewphoto() + "1.png");
-        String presentFlie = classpathFile
-                + "/static/news/" + news.getPresent() + ".txt";
-        File presentFile = new File(presentFlie);
-        StringBuffer present1 = new StringBuffer();
-        if (presentFile.exists()) {
-            present1.append(FileUtils.readFileToString(presentFile));
-        }
-        req.getSession().setAttribute("present1", present1);
+
+        Article article = articleService.getNewsByUser(nid);
+        req.getSession().setAttribute("content", article.getContent());
+        req.getSession().setAttribute("title", article.getTitle());
+        req.getSession().setAttribute("addTime", article.getAddTime());
         // 加载评论
         List<UserDiscuss> userDiscussList = new ArrayList<UserDiscuss>();
         List<Discuss> discussList = discussService.findDiscussByNid(nid);
@@ -536,68 +529,5 @@ public class IndexCotroller {
         return "allQuestion";
     }
 
-    /**
-     * 前台跳转景点信息页面
-     *
-     * @param req
-     * @return
-     * @throws IOException
-     */
-    @RequestMapping("/travelsDetail.do")
-    public String travelsDetail(HttpServletRequest req) throws IOException {
-        req.setCharacterEncoding("utf-8");
-        Integer tid = Integer.parseInt(req.getParameter("tid"));
-        Travels travels = travelsService.findByTid(tid);
-        req.getSession().setAttribute("nowtravels", travels);
-        User user = userService.findByUid(travels.getUid());
-        req.getSession().setAttribute(
-                "travelsphoto",
-                "../travels/" + user.getNickname() + "/"
-                        + travels.getTravelsphoto() + "1.png");
-        String presentFlie = req.getSession().getServletContext().getRealPath(
-                "/")
-                + "travels/"
-                + user.getNickname()
-                + "/"
-                + travels.getPresent()
-                + ".txt";
-        File presentFile = new File(presentFlie);
-        StringBuffer present1 = new StringBuffer();
-        if (presentFile.exists()) {
-            present1.append(FileUtils.readFileToString(presentFile));
-        }
-        req.getSession().setAttribute("present1", present1);
-        // 加载评论
-        List<UserDiscuss> userDiscussList = new ArrayList<UserDiscuss>();
-        List<Discuss> discussList = discussService.findDiscussByTid(tid);
-        for (int i = 0; i < discussList.size(); i++) {
-            userDiscussList
-                    .add(new UserDiscuss(userService.findByUid(discussList.get(
-                            i).getUid()), discussList.get(i)));
-        }
-        req.getSession().setAttribute("userDiscussList", userDiscussList);
-        Integer userDiscussNum = userDiscussList.size();
-        req.setAttribute("userDiscussNum", userDiscussNum);
-        if (userDiscussNum % 2 == 0) {
-            req.setAttribute("userDiscussPage", userDiscussNum / 2);
-        } else {
-            req.setAttribute("userDiscussPage", userDiscussNum / 2 + 1);
-        }
-        if (userDiscussNum == 0) {
-            req.setAttribute("nowPage", 0);
-        } else {
-            req.setAttribute("nowPage", 1);
-        }
-        int fromindex = 0;
-        int toindex = fromindex + 2;
-        List<UserDiscuss> userDiscussLists;
-        if (toindex >= userDiscussNum) {
-            userDiscussLists = userDiscussList.subList(fromindex,
-                    userDiscussNum);
-        } else {
-            userDiscussLists = userDiscussList.subList(fromindex, toindex);
-        }
-        req.setAttribute("userDiscussLists", userDiscussLists);
-        return "travelsDetail";
-    }
+
 }
