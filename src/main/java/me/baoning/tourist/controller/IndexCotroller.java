@@ -153,63 +153,7 @@ public class IndexCotroller {
         return "register";
     }
 
-    /**
-     * 前台跳转景点信息页面
-     *
-     * @param req
-     * @return
-     * @throws IOException
-     */
-    @RequestMapping("/veiwDetail.do")
-    public String veiwDetail(HttpServletRequest req) throws IOException {
-        req.setCharacterEncoding("utf-8");
-        Integer vid = Integer.parseInt(req.getParameter("vid"));
-        ViewSpot veiwSpot = veiwService.findVeiwByVid(vid);
-        req.getSession().setAttribute("nowveiw", veiwSpot);
-        req.getSession().setAttribute("veiwphoto2",
-                "../veiwphoto/" + veiwSpot.getVeiwphoto() + "2.png");
-        String presentFlie =
-                "static/veiwspot/" + veiwSpot.getPresent() + ".txt";
-        File presentFile = new File(MyFileUtils.getClassPath(), presentFlie);
-        StringBuffer present1 = new StringBuffer();
-        if (presentFile.exists()) {
-            present1.append(FileUtils.readFileToString(presentFile));
 
-        }
-        req.getSession().setAttribute("present1", present1);
-        // 加载评论
-        List<UserDiscuss> userDiscussList = new ArrayList<UserDiscuss>();
-        List<Discuss> discussList = discussService.findDiscussByVid(vid);
-        for (int i = 0; i < discussList.size(); i++) {
-            userDiscussList
-                    .add(new UserDiscuss(userService.findByUid(discussList.get(
-                            i).getUid()), discussList.get(i)));
-        }
-        req.getSession().setAttribute("userDiscussList", userDiscussList);
-        Integer userDiscussNum = userDiscussList.size();
-        req.setAttribute("userDiscussNum", userDiscussNum);
-        if (userDiscussNum % 2 == 0) {
-            req.setAttribute("userDiscussPage", userDiscussNum / 2);
-        } else {
-            req.setAttribute("userDiscussPage", userDiscussNum / 2 + 1);
-        }
-        if (userDiscussNum == 0) {
-            req.setAttribute("nowPage", 0);
-        } else {
-            req.setAttribute("nowPage", 1);
-        }
-        int fromindex = 0;
-        int toindex = fromindex + 2;
-        List<UserDiscuss> userDiscussLists;
-        if (toindex >= userDiscussNum) {
-            userDiscussLists = userDiscussList.subList(fromindex,
-                    userDiscussNum);
-        } else {
-            userDiscussLists = userDiscussList.subList(fromindex, toindex);
-        }
-        req.setAttribute("userDiscussLists", userDiscussLists);
-        return "veiwDetail";
-    }
 
     /**
      * 前台跳转新闻详情页面

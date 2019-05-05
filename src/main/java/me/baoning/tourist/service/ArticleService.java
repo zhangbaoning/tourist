@@ -29,4 +29,10 @@ public class ArticleService {
         article.setType(1);
         return dao.selectOne(article);
     }
+    public Article getViewById(int id){
+        Article article = new Article();
+        article.setId(id);
+        article.setType(2);
+        return dao.selectOne(article);
+    }
 }
